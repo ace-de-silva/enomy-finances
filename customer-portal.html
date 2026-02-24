@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Portal — Enomy-Finances</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/customer.css">
+</head>
+<body class="portal-body">
+
+  <!-- ── Skip nav ─────────────────────────────────────────── -->
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <!-- ── Portal Layout ──────────────────────────────────────── -->
+  <div class="portal-layout" id="customer-portal">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="customer-sidebar" role="navigation" aria-label="Customer navigation">
+      <div class="sidebar__brand">
+        <img src="assets/images/logo.svg" alt="Enomy-Finances" width="150" height="34">
+      </div>
+
+      <nav class="sidebar__nav">
+        <ul role="list">
+          <li>
+            <a href="#" class="sidebar__item active" data-section="dashboard" onclick="showSection('dashboard',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">⊞</span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-section="currency" onclick="showSection('currency',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">⇄</span>
+              <span>Currency Converter</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-section="investment" onclick="showSection('investment',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">📈</span>
+              <span>Investment Quotes</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-section="mortgage" onclick="showSection('mortgage',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">🏠</span>
+              <span>Mortgage Calculator</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-section="history" onclick="showSection('history',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">📋</span>
+              <span>Transaction History</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-section="quotes" onclick="showSection('quotes',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">💾</span>
+              <span>Saved Quotes</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-section="profile" onclick="showSection('profile',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">👤</span>
+              <span>My Profile</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar__footer">
+        <button class="btn btn-ghost btn-sm sidebar__signout" onclick="handleSignOut()">
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="portal-main">
+
+      <!-- Header -->
+      <header class="portal-header" role="banner">
+        <button class="portal-header__menu-btn" id="mobile-menu-toggle" aria-label="Open navigation" onclick="document.getElementById('customer-sidebar').classList.toggle('sidebar--open')">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="portal-header__title" id="page-title">Dashboard</div>
+        <div class="portal-header__right">
+          <div class="session-timer" id="session-timer-display" role="timer" aria-live="polite" title="Session time remaining"></div>
+          <div class="user-dropdown">
+            <button class="user-dropdown__trigger" id="user-menu-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleUserMenu()">
+              <span class="user-avatar" id="user-avatar-initials">CU</span>
+              <span id="user-display-name">Customer</span>
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div class="user-dropdown__menu" id="user-menu" role="menu" aria-labelledby="user-menu-btn" style="display:none">
+              <a href="#" class="user-dropdown__item" role="menuitem" onclick="showSection('profile',null);toggleUserMenu();return false;">My Profile</a>
+              <a href="#" class="user-dropdown__item" role="menuitem" onclick="showSection('history',null);toggleUserMenu();return false;">Transaction History</a>
+              <div class="user-dropdown__divider"></div>
+              <a href="#" class="user-dropdown__item user-dropdown__item--danger" role="menuitem" onclick="handleSignOut()">Sign Out</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-content">
+
+        <!-- ── Dashboard Section ───────────────────────────── -->
+        <section class="portal-section active" id="section-dashboard" aria-label="Dashboard">
+          <div class="section-header">
+            <h1>Welcome back, <span id="dashboard-name">Customer</span></h1>
+            <p class="text-muted">Here's an overview of your account activity</p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--primary" aria-hidden="true">⇄</div>
+              <div class="stat-card__body">
+                <div class="stat-card__value" id="dash-conversions">0</div>
+                <div class="stat-card__label">Total Conversions</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--success" aria-hidden="true">£</div>
+              <div class="stat-card__body">
+                <div class="stat-card__value" id="dash-volume">£0.00</div>
+                <div class="stat-card__label">Total Volume (GBP)</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--teal" aria-hidden="true">📈</div>
+              <div class="stat-card__body">
+                <div class="stat-card__value" id="dash-quotes">0</div>
+                <div class="stat-card__label">Saved Quotes</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--gold" aria-hidden="true">💰</div>
+              <div class="stat-card__body">
+                <div class="stat-card__value" id="dash-fees">£0.00</div>
+                <div class="stat-card__label">Fees Paid</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card__header">
+                <h3>Recent Conversions</h3>
+                <button class="btn btn-ghost btn-xs" onclick="showSection('history',null)">View all</button>
+              </div>
+              <div class="card__body" id="dash-recent-conversions">
+                <p class="text-muted">Loading…</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header">
+                <h3>Pending Quote Reviews</h3>
+                <button class="btn btn-ghost btn-xs" onclick="showSection('quotes',null)">View all</button>
+              </div>
+              <div class="card__body" id="dash-pending-quotes">
+                <p class="text-muted">Loading…</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="quick-actions__grid">
+              <button class="quick-action-btn" onclick="showSection('currency',null)">
+                <span aria-hidden="true">⇄</span>
+                <span>Convert Currency</span>
+              </button>
+              <button class="quick-action-btn" onclick="showSection('investment',null)">
+                <span aria-hidden="true">📈</span>
+                <span>Get Investment Quote</span>
+              </button>
+              <button class="quick-action-btn" onclick="showSection('mortgage',null)">
+                <span aria-hidden="true">🏠</span>
+                <span>Calculate Mortgage</span>
+              </button>
+              <button class="quick-action-btn" onclick="showSection('history',null)">
+                <span aria-hidden="true">📋</span>
+                <span>View History</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Currency Converter Section ──────────────────── -->
+        <section class="portal-section" id="section-currency" aria-label="Currency converter" style="display:none">
+          <div class="section-header">
+            <h1>Currency Converter</h1>
+            <p class="text-muted">Convert between 6 major currencies with live rates</p>
+          </div>
+
+          <div id="currency-converter-section" class="currency-layout">
+            <!-- Rate bar -->
+            <div class="live-rate-banner">
+              <div id="live-rate-bar" class="live-rate-bar">
+                <span class="rate-live-dot" aria-hidden="true"></span>
+                <span>Loading live rates…</span>
+              </div>
+              <span id="fee-tier-badge" class="badge badge-warning">Standard (3.5%)</span>
+            </div>
+
+            <!-- Converter form -->
+            <div class="converter-card card">
+              <div class="card__body">
+                <div class="converter-grid">
+                  <!-- From -->
+                  <div class="converter-field">
+                    <label class="form-label" for="from-currency">From</label>
+                    <select id="from-currency" class="form-select" aria-label="Source currency"></select>
+                  </div>
+                  <!-- Amount -->
+                  <div class="converter-field converter-field--amount">
+                    <label class="form-label" for="from-amount">Amount</label>
+                    <div class="input-prefix-wrapper">
+                      <input type="number" id="from-amount" class="form-input" placeholder="300.00"
+                             min="0" step="0.01" aria-label="Amount to convert" aria-describedby="amount-error">
+                    </div>
+                    <div id="amount-error" class="form-error" role="alert" style="display:none"></div>
+                  </div>
+                  <!-- Swap button -->
+                  <div class="converter-swap">
+                    <button id="swap-currencies" class="swap-btn" aria-label="Swap currencies">⇄</button>
+                  </div>
+                  <!-- To -->
+                  <div class="converter-field">
+                    <label class="form-label" for="to-currency">To</label>
+                    <select id="to-currency" class="form-select" aria-label="Target currency"></select>
+                  </div>
+                </div>
+
+                <!-- Live preview -->
+                <div id="conversion-preview" style="display:none" aria-live="polite"></div>
+
+                <button id="convert-btn" class="btn btn-primary btn-full mt-md" disabled>
+                  Convert
+                </button>
+              </div>
+            </div>
+
+            <!-- Receipt -->
+            <div id="conversion-receipt" style="display:none" aria-live="polite"></div>
+
+            <!-- Fee guide + history side by side -->
+            <div class="converter-secondary-grid">
+              <div class="card">
+                <div class="card__header"><h3>Fee Structure</h3></div>
+                <div class="card__body" id="fee-guide-container"></div>
+              </div>
+              <div class="card">
+                <div class="card__header">
+                  <h3>Recent Conversions</h3>
+                  <button id="export-conversions" class="btn btn-ghost btn-xs">Export CSV</button>
+                </div>
+                <div class="card__body" id="conversion-history">
+                  <p class="text-muted">No conversion history yet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Investment Section ───────────────────────────── -->
+        <section class="portal-section" id="section-investment" aria-label="Investment quote generator" style="display:none">
+          <div class="section-header">
+            <h1>Investment Quote Generator</h1>
+            <p class="text-muted">Generate personalised investment projections across our three managed plans</p>
+          </div>
+
+          <div id="investment-section">
+            <!-- EFSM State -->
+            <div class="efsm-state-bar">
+              <span class="text-muted">Quote Engine:</span>
+              <span id="efsm-state-badge" class="badge badge-secondary">INITIAL</span>
+            </div>
+
+            <!-- Plan cards -->
+            <div id="plan-cards" class="plan-cards-row" aria-label="Available investment plans"></div>
+
+            <!-- Quote form -->
+            <div class="card mt-lg">
+              <div class="card__header"><h3>Generate Your Quote</h3></div>
+              <div class="card__body">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="investment-plan">Investment Plan</label>
+                    <select id="investment-plan" class="form-select" required>
+                      <option value="">— Select a plan —</option>
+                      <option value="basic-savings">🏦 Basic Savings (3.5% AER)</option>
+                      <option value="savings-plus">📈 Savings Plan Plus (7.2% AER)</option>
+                      <option value="managed-stock">🚀 Managed Stock Portfolio (12.4% AER)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="investment-period">Investment Period</label>
+                    <select id="investment-period" class="form-select" required>
+                      <option value="">— Select period —</option>
+                      <option value="1">1 Year</option>
+                      <option value="5">5 Years</option>
+                      <option value="10">10 Years</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="investment-amount">Investment Amount (£)</label>
+                    <input type="number" id="investment-amount" class="form-input" placeholder="e.g. 5000"
+                           min="500" max="500000" step="100" required>
+                    <div id="investment-amount-error" class="form-error" style="display:none"></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="annual-income">Approximate Annual Income (£)</label>
+                    <input type="number" id="annual-income" class="form-input" placeholder="30000 (default)"
+                           min="0" max="500000">
+                    <div class="form-hint">Used to estimate UK tax on interest income</div>
+                  </div>
+                </div>
+
+                <div id="investment-errors" style="display:none"></div>
+
+                <div class="btn-row">
+                  <button id="calculate-quote-btn" class="btn btn-primary">Generate Quote</button>
+                  <button id="reset-quote-btn"     class="btn btn-ghost">Reset</button>
+                  <button id="save-quote-btn"      class="btn btn-success" style="display:none">Save Quote</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Results -->
+            <div id="investment-results" style="display:none" aria-live="polite"></div>
+
+            <!-- Saved quotes -->
+            <div class="card mt-lg">
+              <div class="card__header"><h3>My Saved Quotes</h3></div>
+              <div class="card__body" id="saved-quotes-list">
+                <p class="text-muted">No saved quotes yet.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Mortgage Calculator Section ─────────────────── -->
+        <section class="portal-section" id="section-mortgage" aria-label="Mortgage calculator" style="display:none">
+          <div class="section-header">
+            <h1>Mortgage Calculator</h1>
+            <p class="text-muted">Calculate monthly payments and view full amortization schedules</p>
+          </div>
+
+          <div id="mortgage-section">
+            <div class="mortgage-layout">
+              <!-- Input form -->
+              <div class="card mortgage-form-card">
+                <div class="card__header"><h3>Mortgage Details</h3></div>
+                <div class="card__body">
+                  <div class="form-group">
+                    <label class="form-label" for="property-value">Property Value (£)</label>
+                    <input type="number" id="property-value" class="form-input" placeholder="e.g. 250000"
+                           min="50000" max="5000000" step="1000">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="deposit-amount">Deposit (£)</label>
+                    <input type="number" id="deposit-amount" class="form-input" placeholder="e.g. 50000"
+                           min="0" step="1000">
+                    <div class="form-row-sm mt-xs">
+                      <span id="deposit-pct-label" class="form-hint"></span>
+                      <span id="loan-amount-label" class="form-hint text-primary"></span>
+                    </div>
+                  </div>
+
+                  <!-- LTV indicator -->
+                  <div id="ltv-indicator" class="ltv-indicator">
+                    <div class="ltv-bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                      <div id="ltv-bar-fill" class="ltv-bar-fill" style="width:0%"></div>
+                    </div>
+                    <span id="ltv-label" class="ltv-label">LTV: —</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="interest-rate">Annual Interest Rate (%)</label>
+                    <input type="number" id="interest-rate" class="form-input" placeholder="e.g. 4.5"
+                           min="0.5" max="25" step="0.1">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="mortgage-term">Mortgage Term (years)</label>
+                    <input type="number" id="mortgage-term" class="form-input" placeholder="e.g. 25"
+                           min="5" max="35" step="1">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="mortgage-type">Mortgage Type</label>
+                    <select id="mortgage-type" class="form-select">
+                      <option value="repayment">Repayment (Capital + Interest)</option>
+                      <option value="interest-only">Interest Only</option>
+                    </select>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" id="first-time-buyer" class="form-check-input">
+                    <label for="first-time-buyer" class="form-check-label">First-time buyer (SDLT relief)</label>
+                  </div>
+
+                  <div id="mortgage-errors" style="display:none"></div>
+
+                  <div class="btn-row mt-md">
+                    <button id="calculate-mortgage-btn" class="btn btn-primary">Calculate</button>
+                    <button id="reset-mortgage-btn"     class="btn btn-ghost">Reset</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Results panel -->
+              <div id="mortgage-results" class="mortgage-results-panel" style="display:none" aria-live="polite"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Transaction History Section ─────────────────── -->
+        <section class="portal-section" id="section-history" aria-label="Transaction history" style="display:none">
+          <div class="section-header">
+            <h1>Transaction History</h1>
+            <p class="text-muted">All your currency conversion transactions</p>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <div class="card__header-controls">
+                <input type="text" id="history-search" class="form-input form-input--sm"
+                       placeholder="Search transactions…" oninput="filterHistory()">
+                <button class="btn btn-secondary btn-sm" onclick="exportAllHistory()">Export All (CSV)</button>
+              </div>
+            </div>
+            <div class="card__body">
+              <div id="history-table-container">
+                <p class="text-muted">Loading…</p>
+              </div>
+              <div id="history-pagination"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Saved Quotes Section ─────────────────────────── -->
+        <section class="portal-section" id="section-quotes" aria-label="Saved investment quotes" style="display:none">
+          <div class="section-header">
+            <h1>Saved Investment Quotes</h1>
+            <p class="text-muted">Your saved quotes — advisor review status shown below</p>
+          </div>
+          <div id="saved-quotes-page-container">
+            <p class="text-muted">Loading…</p>
+          </div>
+        </section>
+
+        <!-- ── Profile Section ──────────────────────────────── -->
+        <section class="portal-section" id="section-profile" aria-label="My profile" style="display:none">
+          <div class="section-header">
+            <h1>My Profile</h1>
+            <p class="text-muted">Manage your account details and preferences</p>
+          </div>
+
+          <div class="profile-layout">
+            <div class="card profile-card">
+              <div class="card__body">
+                <div class="profile-avatar" id="profile-avatar">CU</div>
+                <h2 id="profile-name" class="text-center mt-sm">Loading…</h2>
+                <p  id="profile-email" class="text-center text-muted"></p>
+                <div class="profile-completeness mt-md">
+                  <div class="d-flex justify-content-between">
+                    <small>Profile completeness</small>
+                    <small id="profile-pct">—%</small>
+                  </div>
+                  <div class="progress-bar-track mt-xs">
+                    <div id="profile-progress" class="progress-bar-fill" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-details">
+              <div class="card">
+                <div class="card__header">
+                  <h3>Personal Information</h3>
+                  <button class="btn btn-ghost btn-xs" id="edit-profile-btn" onclick="toggleEditProfile()">Edit</button>
+                </div>
+                <div class="card__body" id="profile-info-view">
+                  <div class="profile-info-grid" id="profile-info-grid">Loading…</div>
+                </div>
+                <div class="card__body" id="profile-info-edit" style="display:none">
+                  <div class="form-group">
+                    <label class="form-label" for="edit-name">Full Name</label>
+                    <input type="text" id="edit-name" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="edit-phone">Phone Number</label>
+                    <input type="tel"  id="edit-phone" class="form-input">
+                  </div>
+                  <div class="btn-row">
+                    <button class="btn btn-primary btn-sm" onclick="saveProfile()">Save Changes</button>
+                    <button class="btn btn-ghost btn-sm" onclick="toggleEditProfile()">Cancel</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card mt-md">
+                <div class="card__header"><h3>Change Password</h3></div>
+                <div class="card__body">
+                  <div id="password-change-error"   class="alert alert-danger"  style="display:none"></div>
+                  <div id="password-change-success" class="alert alert-success" style="display:none"></div>
+                  <div class="form-group">
+                    <label class="form-label" for="current-password">Current Password</label>
+                    <input type="password" id="current-password" class="form-input" autocomplete="current-password">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="new-password">New Password</label>
+                    <input type="password" id="new-password" class="form-input" autocomplete="new-password"
+                           oninput="updatePwStrength(this.value)">
+                    <div class="password-strength" id="pw-strength-bar" aria-live="polite">
+                      <div class="password-strength__bar">
+                        <div class="strength-segment" id="ps-0"></div>
+                        <div class="strength-segment" id="ps-1"></div>
+                        <div class="strength-segment" id="ps-2"></div>
+                        <div class="strength-segment" id="ps-3"></div>
+                      </div>
+                      <span id="ps-label" class="password-strength__label"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="confirm-password">Confirm New Password</label>
+                    <input type="password" id="confirm-password" class="form-input" autocomplete="new-password">
+                  </div>
+                  <button class="btn btn-primary btn-sm" onclick="handleChangePassword()">Update Password</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main><!-- /main-content -->
+    </div><!-- /portal-main -->
+  </div><!-- /portal-layout -->
+
+  <!-- ── Session Warning Modal ──────────────────────────────── -->
+  <div class="modal" id="session-warning-modal" role="alertdialog" aria-modal="true" aria-labelledby="session-warning-title" aria-hidden="true">
+    <div class="modal__backdrop"></div>
+    <div class="modal__box modal__box--sm">
+      <div class="modal__header">
+        <div style="text-align:center;font-size:2.5rem">⏰</div>
+        <h2 class="modal__title" id="session-warning-title">Session Expiring Soon</h2>
+        <p class="modal__subtitle">
+          Your session will expire in <strong id="session-countdown">60</strong> seconds due to inactivity.
+        </p>
+      </div>
+      <div class="modal__body">
+        <div class="btn-row">
+          <button class="btn btn-primary btn-full" onclick="extendSession()">Continue Session</button>
+          <button class="btn btn-ghost btn-full"   onclick="handleSignOut()">Sign Out Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Toast container ────────────────────────────────────── -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- ── Scripts ────────────────────────────────────────────── -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="js/security.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="data/seed-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/currency-converter.js"></script>
+  <script src="js/investment-efsm.js"></script>
+  <script src="js/mortgage-calculator.js"></script>
+  <script src="js/charts.js"></script>
+
+  <script>
+    'use strict';
+
+    // ── Auth guard ──────────────────────────────────────────
+    (function() {
+      if (typeof auth === 'undefined' || !auth.isAuthenticated()) {
+        window.location.href = 'index.html'; return;
+      }
+      const user = auth.getCurrentUser();
+      if (!user || user.role !== 'Customer') {
+        window.location.href = 'index.html'; return;
+      }
+      // Boot user info
+      const name = user.name || user.fullName || 'Customer';
+      const initials = name.split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2);
+      document.getElementById('dashboard-name').textContent      = name.split(' ')[0];
+      document.getElementById('user-display-name').textContent   = name;
+      document.getElementById('user-avatar-initials').textContent = initials;
+      document.getElementById('profile-avatar').textContent = initials;
+      document.getElementById('profile-name').textContent  = name;
+      document.getElementById('profile-email').textContent = user.email || '';
+    })();
+
+    // ── Section routing ──────────────────────────────────────
+    const sectionTitles = {
+      dashboard: 'Dashboard', currency: 'Currency Converter',
+      investment: 'Investment Quotes', mortgage: 'Mortgage Calculator',
+      history: 'Transaction History', quotes: 'Saved Quotes', profile: 'My Profile'
+    };
+    let _sectionInited = {};
+
+    function showSection(name, linkEl) {
+      document.querySelectorAll('.portal-section').forEach(s => s.style.display = 'none');
+      const section = document.getElementById(`section-${name}`);
+      if (section) section.style.display = 'block';
+
+      document.querySelectorAll('.sidebar__item').forEach(l => l.classList.remove('active'));
+      (linkEl || document.querySelector(`[data-section="${name}"]`))?.classList.add('active');
+
+      const titleEl = document.getElementById('page-title');
+      if (titleEl) titleEl.textContent = sectionTitles[name] || name;
+
+      // Lazy-init
+      if (!_sectionInited[name]) {
+        _sectionInited[name] = true;
+        const inits = {
+          currency:   () => initCurrencyConverter('currency-converter-section'),
+          investment: () => initInvestmentModule('investment-section'),
+          mortgage:   () => initMortgageCalculator('mortgage-section'),
+          history:    () => loadTransactionHistory(),
+          quotes:     () => loadSavedQuotesPage(),
+          profile:    () => loadProfile(),
+          dashboard:  () => loadDashboard()
+        };
+        inits[name]?.();
+      }
+
+      document.getElementById('customer-sidebar')?.classList.remove('sidebar--open');
+    }
+
+    // ── Dashboard ────────────────────────────────────────────
+    function loadDashboard() {
+      const user = auth.getCurrentUser();
+      if (!user) return;
+      const uid  = user.id || user.userID;
+      const conversions = db.findConversionsByUser(uid, 100);
+      const quotes      = db.findSavedQuotes(uid);
+
+      document.getElementById('dash-conversions').textContent = conversions.length;
+      document.getElementById('dash-quotes').textContent      = quotes.length;
+
+      const volume = conversions.reduce((s, c) => s + (parseFloat(c.gbpEquivalent) || parseFloat(c.amount) || 0), 0);
+      const fees   = conversions.reduce((s, c) => s + (parseFloat(c.fee) || 0), 0);
+      document.getElementById('dash-volume').textContent = '£' + volume.toLocaleString('en-GB', { minimumFractionDigits: 2 });
+      document.getElementById('dash-fees').textContent   = '£' + fees.toLocaleString('en-GB', { minimumFractionDigits: 2 });
+
+      // Recent conversions
+      const recentEl = document.getElementById('dash-recent-conversions');
+      if (recentEl) {
+        if (!conversions.length) {
+          recentEl.innerHTML = '<p class="text-muted">No conversions yet. <a href="#" onclick="showSection(\'currency\',null);return false;">Make your first conversion</a></p>';
+        } else {
+          recentEl.innerHTML = conversions.slice(0, 4).map(c => `
+            <div class="activity-row">
+              <span class="activity-pair">${c.fromCurrency} → ${c.toCurrency}</span>
+              <span class="activity-amount">£${parseFloat(c.amount).toFixed(2)}</span>
+              <span class="text-muted">${new Date(c.date || c.createdAt).toLocaleDateString('en-GB')}</span>
+            </div>`).join('');
+        }
+      }
+
+      // Pending reviews
+      const pendingEl = document.getElementById('dash-pending-quotes');
+      if (pendingEl) {
+        const pending = quotes.filter(q => !q.advisorReviewed);
+        if (!pending.length) {
+          pendingEl.innerHTML = '<p class="text-muted">No pending reviews. All quotes are up to date.</p>';
+        } else {
+          pendingEl.innerHTML = pending.slice(0, 3).map(q => `
+            <div class="activity-row">
+              <span>${q.planName}</span>
+              <span class="badge badge-warning">Pending Review</span>
+              <span class="text-muted">${new Date(q.generatedDate || q.createdAt).toLocaleDateString('en-GB')}</span>
+            </div>`).join('');
+        }
+      }
+    }
+
+    // ── Transaction history ──────────────────────────────────
+    let _historyPage = 1;
+    let _historyAll  = [];
+
+    function loadTransactionHistory(page = 1) {
+      const user = auth.getCurrentUser();
+      if (!user) return;
+      _historyAll  = db.findConversionsByUser(user.id || user.userID, 1000);
+      _historyPage = page;
+      renderHistoryTable();
+    }
+
+    function filterHistory() {
+      _historyPage = 1;
+      renderHistoryTable();
+    }
+
+    function renderHistoryTable() {
+      const container = document.getElementById('history-table-container');
+      if (!container) return;
+
+      const term = document.getElementById('history-search')?.value?.toLowerCase() || '';
+      const filtered = term
+        ? _historyAll.filter(c => (c.fromCurrency + c.toCurrency + c.amount + (c.date || '')).toLowerCase().includes(term))
+        : _historyAll;
+
+      const paged = paginate(filtered, _historyPage, 15);
+
+      if (!filtered.length) {
+        container.innerHTML = '<p class="text-muted">No transactions found.</p>';
+        document.getElementById('history-pagination').innerHTML = '';
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="table-responsive">
+          <table class="data-table" aria-label="Transaction history">
+            <thead>
+              <tr>
+                <th>Date</th><th>From</th><th>To</th>
+                <th>Sent</th><th>Received</th><th>Fee (£)</th>
+                <th>Rate</th><th>Tier</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${paged.data.map(c => `
+                <tr>
+                  <td>${new Date(c.date || c.createdAt).toLocaleDateString('en-GB')}</td>
+                  <td>${c.fromCurrency}</td>
+                  <td>${c.toCurrency}</td>
+                  <td>£${parseFloat(c.amount).toFixed(2)}</td>
+                  <td>${parseFloat(c.convertedAmount).toFixed(2)} ${c.toCurrency}</td>
+                  <td>£${parseFloat(c.fee).toFixed(2)}</td>
+                  <td>${parseFloat(c.exchangeRate).toFixed(4)}</td>
+                  <td><span class="badge badge-secondary">${c.feeTier || '—'}</span></td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>`;
+
+      renderPagination('history-pagination', _historyPage, paged.pages, p => {
+        _historyPage = p; renderHistoryTable();
+      });
+    }
+
+    function exportAllHistory() {
+      const user = auth.getCurrentUser();
+      if (!user) return;
+      const conversions = db.findConversionsByUser(user.id || user.userID, 10000);
+      if (!conversions.length) { showToast('No history to export.', 'info'); return; }
+      exportToCSV(conversions.map(c => ({
+        date: new Date(c.date || c.createdAt).toLocaleString('en-GB'),
+        fromCurrency: c.fromCurrency, toCurrency: c.toCurrency,
+        amount: c.amount, convertedAmount: c.convertedAmount,
+        fee: c.fee, exchangeRate: c.exchangeRate, feeTier: c.feeTier
+      })), 'my-conversions', {
+        date: 'Date', fromCurrency: 'From', toCurrency: 'To',
+        amount: 'Sent', convertedAmount: 'Received',
+        fee: 'Fee (£)', exchangeRate: 'Rate', feeTier: 'Tier'
+      });
+      showToast('History exported.', 'success');
+    }
+
+    // ── Saved quotes page ────────────────────────────────────
+    function loadSavedQuotesPage() {
+      const container = document.getElementById('saved-quotes-page-container');
+      if (!container) return;
+      const user = auth.getCurrentUser();
+      if (!user) return;
+      const quotes = db.findSavedQuotes(user.id || user.userID);
+
+      if (!quotes.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <p class="text-muted">No saved quotes yet.</p>
+            <button class="btn btn-primary" onclick="showSection('investment',null)">Generate a Quote</button>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="saved-quotes-grid">
+          ${quotes.map(q => `
+            <div class="saved-quote-card">
+              <div class="saved-quote-card__header">
+                <span><strong>${q.planName}</strong></span>
+                <span class="badge ${q.advisorReviewed ? 'badge-success' : 'badge-warning'}">${q.advisorReviewed ? '✓ Reviewed' : 'Pending Review'}</span>
+              </div>
+              <div class="saved-quote-card__body">
+                <div class="sq-row"><span>Investment</span><span>£${parseFloat(q.principal).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</span></div>
+                <div class="sq-row"><span>Period</span><span>${q.period} year${q.period > 1 ? 's' : ''}</span></div>
+                <div class="sq-row"><span>Risk Level</span><span>${q.riskLevel}</span></div>
+                <div class="sq-row"><span>Projected Balance</span><span class="text-success">£${parseFloat(q.finalBalance || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</span></div>
+                <div class="sq-row"><span>Net Return</span><span class="${parseFloat(q.netReturn) >= 0 ? 'text-success' : 'text-danger'}">£${parseFloat(q.netReturn || 0).toFixed(2)}</span></div>
+              </div>
+              <div class="saved-quote-card__footer">
+                <small class="text-muted">Generated ${new Date(q.generatedDate || q.createdAt).toLocaleDateString('en-GB')}</small>
+                ${q.advisorNote ? `<p class="advisor-note"><strong>Advisor:</strong> ${q.advisorNote}</p>` : ''}
+              </div>
+            </div>`).join('')}
+        </div>`;
+    }
+
+    // ── Profile ──────────────────────────────────────────────
+    function loadProfile() {
+      const user = auth.getCurrentUser();
+      if (!user) return;
+      const name    = user.name || user.fullName || 'Customer';
+      const initials = name.split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2);
+      document.getElementById('profile-avatar').textContent = initials;
+      document.getElementById('profile-name').textContent   = name;
+      document.getElementById('profile-email').textContent  = user.email || '';
+
+      const fields = [
+        ['Full Name', user.name || user.fullName || '—'],
+        ['Email', user.email || '—'],
+        ['Phone', user.phone || '—'],
+        ['Member Since', new Date(user.createdAt).toLocaleDateString('en-GB')],
+        ['Account Status', user.status || 'Active'],
+        ['Role', user.role || '—']
+      ];
+
+      const grid = document.getElementById('profile-info-grid');
+      if (grid) {
+        grid.innerHTML = fields.map(([label, value]) => `
+          <div class="profile-field"><span class="profile-field__label">${label}</span><span class="profile-field__value">${value}</span></div>`
+        ).join('');
+      }
+
+      // Prefill edit form
+      if (document.getElementById('edit-name'))  document.getElementById('edit-name').value  = user.name || user.fullName || '';
+      if (document.getElementById('edit-phone')) document.getElementById('edit-phone').value = user.phone || '';
+
+      // Completeness
+      const filled  = [user.name || user.fullName, user.email, user.phone].filter(Boolean).length;
+      const pct     = Math.round((filled / 3) * 100);
+      const pctEl   = document.getElementById('profile-pct');
+      const progEl  = document.getElementById('profile-progress');
+      if (pctEl)  pctEl.textContent = pct + '%';
+      if (progEl) progEl.style.width = pct + '%';
+    }
+
+    function toggleEditProfile() {
+      const view = document.getElementById('profile-info-view');
+      const edit = document.getElementById('profile-info-edit');
+      const btn  = document.getElementById('edit-profile-btn');
+      if (view.style.display === 'none') {
+        view.style.display = 'block'; edit.style.display = 'none'; btn.textContent = 'Edit';
+      } else {
+        view.style.display = 'none'; edit.style.display = 'block'; btn.textContent = 'Cancel';
+      }
+    }
+
+    function saveProfile() {
+      const user = auth.getCurrentUser();
+      if (!user) return;
+      const name  = document.getElementById('edit-name')?.value?.trim();
+      const phone = document.getElementById('edit-phone')?.value?.trim();
+      if (!name) { showToast('Name cannot be empty.', 'error'); return; }
+      db.updateUser(user.id || user.userID, { name, fullName: name, phone });
+      db.log(user.id || user.userID, 'PROFILE_UPDATED', 'Customer updated profile');
+      showToast('Profile updated successfully.', 'success');
+      toggleEditProfile();
+      loadProfile();
+    }
+
+    async function handleChangePassword() {
+      const user     = auth.getCurrentUser();
+      const current  = document.getElementById('current-password')?.value;
+      const newPwd   = document.getElementById('new-password')?.value;
+      const confirm  = document.getElementById('confirm-password')?.value;
+      const errEl    = document.getElementById('password-change-error');
+      const succEl   = document.getElementById('password-change-success');
+      if (errEl)  { errEl.style.display = 'none'; errEl.textContent = ''; }
+      if (succEl) succEl.style.display = 'none';
+
+      if (!current || !newPwd || !confirm) { if (errEl) { errEl.textContent = 'All fields are required.'; errEl.style.display = 'block'; } return; }
+      if (newPwd !== confirm) { if (errEl) { errEl.textContent = 'New passwords do not match.'; errEl.style.display = 'block'; } return; }
+
+      const result = await auth.changePassword(user.id || user.userID, current, newPwd);
+      if (result.success) {
+        if (succEl) { succEl.textContent = 'Password changed successfully.'; succEl.style.display = 'block'; }
+        ['current-password','new-password','confirm-password'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      } else {
+        if (errEl) { errEl.textContent = result.message || 'Failed to change password.'; errEl.style.display = 'block'; }
+      }
+    }
+
+    function updatePwStrength(password) {
+      if (typeof analyzePasswordStrength === 'undefined') return;
+      const r = analyzePasswordStrength(password);
+      for (let i = 0; i < 4; i++) {
+        const s = document.getElementById(`ps-${i}`);
+        if (s) s.style.backgroundColor = i < r.score ? r.color : '#E2E8F0';
+      }
+      const lbl = document.getElementById('ps-label');
+      if (lbl) { lbl.textContent = password ? r.label : ''; lbl.style.color = r.color; }
+    }
+
+    // ── Sign out ─────────────────────────────────────────────
+    function handleSignOut() {
+      auth.logout('user_initiated');
+    }
+
+    function extendSession() {
+      if (typeof auth !== 'undefined') auth.resetInactivityTimer();
+      const modal = document.getElementById('session-warning-modal');
+      if (modal) { modal.style.display = 'none'; modal.setAttribute('aria-hidden', 'true'); }
+    }
+
+    // ── User menu toggle ─────────────────────────────────────
+    function toggleUserMenu() {
+      const menu = document.getElementById('user-menu');
+      const btn  = document.getElementById('user-menu-btn');
+      if (!menu) return;
+      const open = menu.style.display === 'block';
+      menu.style.display = open ? 'none' : 'block';
+      btn?.setAttribute('aria-expanded', !open);
+    }
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.user-dropdown')) {
+        document.getElementById('user-menu')?.style && (document.getElementById('user-menu').style.display = 'none');
+      }
+    });
+
+    // ── Session timer display ─────────────────────────────────
+    setInterval(() => {
+      const el = document.getElementById('session-timer-display');
+      if (!el || typeof auth === 'undefined') return;
+      const info = auth.getSessionInfo();
+      if (info) {
+        const remaining = Math.max(0, Math.ceil((new Date(info.expiresAt) - Date.now()) / 1000));
+        el.textContent = `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, '0')}`;
+      }
+    }, 1000);
+
+    // ── Init dashboard on load ───────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDashboard();
+      _sectionInited['dashboard'] = true;
+    });
+  </script>
+
+</body>
+</html>

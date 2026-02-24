@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#003D82;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#008B8B;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Shield icon -->
+  <path d="M12 4 L24 8 L24 22 C24 30 18 36 12 38 C6 36 0 30 0 22 L0 8 Z" fill="url(#logoGrad)" transform="translate(4, 8) scale(0.9)"/>
+  <path d="M8 18 L11 21 L17 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(4, 8) scale(0.9)"/>
+  <!-- Text -->
+  <text x="38" y="32" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#003D82">Enomy</text>
+  <text x="108" y="32" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#D4AF37">·</text>
+  <text x="118" y="32" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#008B8B">Finances</text>
+  <!-- Tagline -->
+  <text x="38" y="46" font-family="Arial, sans-serif" font-size="9" fill="#6C757D" letter-spacing="1.5">FINANCIAL ADVISORY PLATFORM</text>
+</svg>

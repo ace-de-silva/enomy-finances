@@ -1,0 +1,390 @@
+/* ============================================================
+   ENOMY-FINANCES | admin.css
+   Admin Portal Specific Styles
+   ============================================================ */
+
+/* ── Stats Grid Variants ─────────────────────────────────────── */
+
+.stats-grid--6 { grid-template-columns: repeat(6, 1fr); }
+.stats-grid--4 { grid-template-columns: repeat(4, 1fr); }
+.stats-grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+.stat-card--admin { padding: 1.25rem; text-align: center; }
+.stat-card--gold    { border-top: 3px solid var(--c-gold); }
+.stat-card--success { border-top: 3px solid var(--c-success); }
+.stat-card--warning { border-top: 3px solid var(--c-warning); }
+.stat-card--accent  { border-top: 3px solid var(--c-accent); }
+.stat-card--danger  { border-top: 3px solid var(--c-danger); }
+.stat-card--teal    { border-top: 3px solid var(--c-teal); }
+
+/* ── Charts Grid (2-col) ─────────────────────────────────────── */
+
+.charts-grid--2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* ── Card Header Controls + Footer ──────────────────────────── */
+
+.card__header-controls {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card__footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--c-border);
+}
+
+/* ── DB Stats Panel ──────────────────────────────────────────── */
+
+.db-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+
+.db-stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem .75rem;
+  background: #F8FAFC;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  font-size: .85rem;
+}
+.db-stat-collection { color: var(--c-text-2); }
+.db-stat-count { font-weight: 700; color: var(--c-primary); font-family: var(--font-mono); }
+
+/* ── Analytics Summary Grid ──────────────────────────────────── */
+
+.analytics-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.analytics-stat {
+  padding: 1rem;
+  background: #F8FAFC;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.analytics-stat__label {
+  display: block;
+  font-size: .75rem;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .35rem;
+}
+.analytics-stat__value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  font-family: var(--font-mono);
+}
+
+/* ── Admin Header Variant ────────────────────────────────────── */
+
+.portal-header--admin {
+  border-bottom-color: rgba(220,53,69,.12);
+}
+
+/* ── System Health (sidebar footer) ─────────────────────────── */
+
+.system-health {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .8rem;
+  color: rgba(255,255,255,.75);
+  margin-bottom: .75rem;
+}
+
+.health-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.health-dot--green   { background: var(--c-success); animation: adminPulse 2.5s infinite; }
+.health-dot--warning { background: var(--c-warning); }
+.health-dot--danger  { background: var(--c-danger); }
+.health-dot.online   { background: var(--c-success); box-shadow: 0 0 6px rgba(40,167,69,.5); animation: adminPulse 3s infinite; }
+.health-dot.warning  { background: var(--c-warning); box-shadow: 0 0 6px rgba(255,193,7,.5); }
+.health-dot.offline  { background: var(--c-danger);  box-shadow: 0 0 6px rgba(220,53,69,.5); }
+
+@keyframes adminPulse { 0%,100%{ opacity:1 } 50%{ opacity:.45 } }
+
+/* ── Activity Feed ───────────────────────────────────────────── */
+
+.activity-feed { max-height: 320px; overflow-y: auto; }
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--c-border);
+  font-size: .875rem;
+}
+.activity-item:last-child { border-bottom: none; }
+
+.activity-badge {
+  flex-shrink: 0;
+  font-size: .7rem;
+  padding: .2rem .6rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.activity-badge--info      { background: rgba(23,162,184,.12);  color: #0c5460; }
+.activity-badge--success   { background: rgba(40,167,69,.12);   color: #155724; }
+.activity-badge--primary   { background: rgba(0,61,130,.1);     color: var(--c-primary); }
+.activity-badge--warning   { background: rgba(255,193,7,.15);   color: #856404; }
+.activity-badge--danger    { background: rgba(220,53,69,.12);   color: #721c24; }
+.activity-badge--secondary { background: #EEF2F7;               color: var(--c-muted); }
+
+.activity-user { color: var(--c-muted); font-size: .83rem; }
+.activity-time { font-size: .78rem; color: #9AA5B1; margin-left: auto; white-space: nowrap; }
+
+/* ── Fee Editor ──────────────────────────────────────────────── */
+
+.fee-editor { max-width: 720px; }
+.input-inline { max-width: 80px; text-align: center; }
+
+/* ── Role Filter Buttons ─────────────────────────────────────── */
+
+.role-filter-btns { display: flex; gap: .25rem; flex-wrap: wrap; }
+
+/* ── User Detail Modal ───────────────────────────────────────── */
+
+.user-detail-modal { font-size: .9rem; }
+
+.user-detail-row {
+  display: flex;
+  gap: .5rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--c-border);
+  line-height: 1.5;
+}
+.user-detail-row:last-child { border-bottom: none; }
+.user-detail-row strong { color: var(--c-text); min-width: 140px; flex-shrink: 0; }
+
+/* ── Compliance / Flagged rows ───────────────────────────────── */
+
+.row--compliance-flag { background: #FFF5F5 !important; }
+.row--compliance-flag td:first-child { border-left: 3px solid var(--c-danger); padding-left: calc(.75rem - 3px); }
+
+.row--flagged { background: #FFFBF0 !important; }
+.row--flagged td:first-child { border-left: 3px solid var(--c-warning); padding-left: calc(.75rem - 3px); }
+
+/* ── Health Grid (full health dashboard) ─────────────────────── */
+
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.health-item {
+  background: var(--c-white);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--c-border);
+}
+.health-dot-lg { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.health-label  { font-size: .875rem; font-weight: 500; color: var(--c-text); }
+.health-status { font-size: .75rem; color: var(--c-muted); margin-top: 1px; }
+.uptime-value  { font-family: var(--font-mono); font-size: 1.125rem; font-weight: 700; color: var(--c-success); margin-left: auto; }
+
+/* ── Admin Stats (legacy 4-col grid) ─────────────────────────── */
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-stat-card {
+  background: var(--c-white);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--c-border);
+  border-top: 4px solid var(--c-primary);
+}
+.admin-stat-card.teal  { border-top-color: var(--c-teal); }
+.admin-stat-card.gold  { border-top-color: var(--c-gold); }
+.admin-stat-card.green { border-top-color: var(--c-success); }
+
+.admin-stat-value { font-family: var(--font-mono); font-size: 1.875rem; font-weight: 700; color: var(--c-text); }
+.admin-stat-label { font-size: .75rem; color: var(--c-muted); text-transform: uppercase; letter-spacing: .05em; margin-top: .25rem; }
+.admin-stat-change { font-size: .75rem; margin-top: .5rem; }
+.admin-stat-change.up   { color: var(--c-success); }
+.admin-stat-change.down { color: var(--c-danger); }
+
+/* ── Compliance badge ────────────────────────────────────────── */
+
+.compliance-badge {
+  background: rgba(220,53,69,.1);
+  color: #721c24;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: .75rem;
+  font-weight: 600;
+}
+.flag-icon { color: var(--c-danger); margin-right: 4px; font-size: .9em; }
+
+/* ── Fee edit table ──────────────────────────────────────────── */
+
+.fee-edit-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.fee-edit-table th {
+  background: #F8FAFC;
+  padding: .75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--c-muted);
+  border-bottom: 2px solid var(--c-border);
+}
+.fee-edit-table td { padding: .75rem 1rem; border-bottom: 1px solid var(--c-border); vertical-align: middle; }
+.fee-edit-table input[type="number"] { width: 100px; text-align: center; font-family: var(--font-mono); font-weight: 600; }
+.fee-edit-table .current-rate { font-family: var(--font-mono); font-weight: 600; color: var(--c-primary); }
+
+.fee-impact {
+  background: linear-gradient(135deg, rgba(0,61,130,.04), rgba(212,175,55,.04));
+  border: 1px solid rgba(212,175,55,.3);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 1rem 0;
+  font-size: .875rem;
+}
+
+/* ── Analytics charts grid ───────────────────────────────────── */
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.analytics-card {
+  background: var(--c-white);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--c-border);
+}
+.analytics-card h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.analytics-card canvas { max-height: 240px; }
+
+.date-range-selector { display: flex; gap: .75rem; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.date-range-selector input[type="date"] { width: auto; font-size: .875rem; padding: .5rem .875rem; }
+
+/* ── Audit action badges ─────────────────────────────────────── */
+
+.audit-action-badge {
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: .75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.action-login-success { background: rgba(40,167,69,.12);    color: #155724; }
+.action-login-failed  { background: rgba(220,53,69,.12);    color: #721c24; }
+.action-logout        { background: rgba(23,162,184,.12);   color: #0c5460; }
+.action-locked        { background: rgba(220,53,69,.15);    color: #721c24; }
+.action-conversion    { background: rgba(0,61,130,.1);      color: var(--c-primary); }
+.action-quote         { background: rgba(0,139,139,.1);     color: #006B6B; }
+.action-fee-change    { background: rgba(255,193,7,.15);    color: #856404; }
+.action-user-created  { background: rgba(40,167,69,.12);    color: #155724; }
+.action-default       { background: #EEF2F7;                color: var(--c-muted); }
+
+/* ── Role badges ─────────────────────────────────────────────── */
+
+.role-badge-customer { background: rgba(0,61,130,.1);     color: var(--c-primary); }
+.role-badge-advisor  { background: rgba(0,139,139,.1);    color: #006B6B; }
+.role-badge-admin    { background: rgba(212,175,55,.15);  color: #7a5c00; }
+
+.user-action-btns { display: flex; gap: .25rem; }
+.user-action-btns button { padding: 4px 8px; font-size: .75rem; border-radius: var(--radius-sm); }
+
+.deactivated-row { opacity: .65; }
+
+/* ── Transaction summary bar ─────────────────────────────────── */
+
+.tx-summary-bar {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: #F8FAFC;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+.tx-summary-item { text-align: center; }
+.tx-summary-item .tx-value { font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; color: var(--c-text); }
+.tx-summary-item .tx-label { font-size: .75rem; color: var(--c-muted); text-transform: uppercase; letter-spacing: .04em; margin-top: 2px; }
+.tx-summary-item .tx-value.flagged { color: var(--c-danger); }
+
+/* ── Responsive Admin ────────────────────────────────────────── */
+
+@media (max-width: 1200px) {
+  .stats-grid--6 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1100px) {
+  .analytics-grid   { grid-template-columns: 1fr; }
+  .charts-grid--2   { grid-template-columns: 1fr; }
+  .analytics-summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 991px) {
+  .admin-stats { grid-template-columns: repeat(2, 1fr); }
+  .health-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 767px) {
+  .stats-grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .db-stats-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .stats-grid--6,
+  .stats-grid--4,
+  .stats-grid--3 { grid-template-columns: 1fr 1fr; }
+  .card__header-controls { flex-direction: column; align-items: flex-start; }
+  .tx-summary-bar { flex-wrap: wrap; }
+  .analytics-summary-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid--6,
+  .stats-grid--4,
+  .stats-grid--3 { grid-template-columns: 1fr; }
+  .admin-stats { grid-template-columns: 1fr; }
+  .db-stats-grid { grid-template-columns: 1fr; }
+}

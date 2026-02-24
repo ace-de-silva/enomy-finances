@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advisor Portal — Enomy-Finances</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/advisor.css">
+</head>
+<body class="portal-body">
+
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <div class="portal-layout" id="advisor-portal">
+
+    <!-- Sidebar -->
+    <aside class="sidebar sidebar--advisor" id="advisor-sidebar" role="navigation" aria-label="Advisor navigation">
+      <div class="sidebar__brand">
+        <img src="assets/images/logo.svg" alt="Enomy-Finances" width="150" height="34">
+        <div class="sidebar__role-badge">Advisor Portal</div>
+      </div>
+
+      <nav class="sidebar__nav">
+        <ul role="list">
+          <li>
+            <a href="#" class="sidebar__item active" data-advisor-section="dashboard"
+               onclick="showAdvisorSection('dashboard',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">⊞</span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-advisor-section="clients"
+               onclick="showAdvisorSection('clients',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">👥</span>
+              <span>Clients</span>
+              <span class="sidebar__badge" id="clients-badge"></span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-advisor-section="reviews"
+               onclick="showAdvisorSection('reviews',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">📝</span>
+              <span>Pending Reviews</span>
+              <span class="sidebar__badge sidebar__badge--warning" id="pending-badge">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" id="profile-nav-link" data-advisor-section="profile"
+               onclick="showAdvisorSection('profile',this);return false;" style="display:none">
+              <span class="sidebar__icon" aria-hidden="true">👤</span>
+              <span>Client Profile</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="sidebar__advisor-info">
+          <div class="sidebar__advisor-avatar" id="advisor-avatar">AD</div>
+          <div>
+            <div id="advisor-name-sidebar" class="sidebar__advisor-name">Advisor</div>
+            <div class="sidebar__advisor-role">Financial Advisor</div>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm sidebar__signout" onclick="handleSignOut()">Sign Out</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="portal-main">
+
+      <!-- Header -->
+      <header class="portal-header" role="banner">
+        <button class="portal-header__menu-btn" aria-label="Open navigation"
+                onclick="document.getElementById('advisor-sidebar').classList.toggle('sidebar--open')">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="portal-header__title" id="adv-page-title">Dashboard</div>
+        <div class="portal-header__right">
+          <div class="session-timer" id="session-timer-display" role="timer" aria-live="polite"></div>
+          <div class="user-dropdown">
+            <button class="user-dropdown__trigger" id="adv-user-menu-btn"
+                    aria-haspopup="true" aria-expanded="false" onclick="toggleAdvMenu()">
+              <span class="user-avatar" id="adv-avatar-hdr">AD</span>
+              <span id="adv-name-hdr">Advisor</span>
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div class="user-dropdown__menu" id="adv-user-menu" style="display:none" role="menu">
+              <a href="#" class="user-dropdown__item" role="menuitem"
+                 onclick="showAdvisorSection('clients',null);toggleAdvMenu();return false;">My Clients</a>
+              <a href="#" class="user-dropdown__item" role="menuitem"
+                 onclick="showAdvisorSection('reviews',null);toggleAdvMenu();return false;">Pending Reviews</a>
+              <div class="user-dropdown__divider"></div>
+              <a href="#" class="user-dropdown__item user-dropdown__item--danger" role="menuitem"
+                 onclick="handleSignOut()">Sign Out</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-content">
+
+        <!-- ── Dashboard ─────────────────────────────────── -->
+        <section class="portal-section advisor-section active" id="advisor-dashboard" aria-label="Advisor dashboard">
+          <div class="section-header">
+            <h1 id="advisor-welcome">Welcome back</h1>
+            <p class="text-muted" id="advisor-welcome-sub">Here's your advisory overview for today</p>
+          </div>
+
+          <div class="stats-grid stats-grid--3">
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--primary" aria-hidden="true">👥</div>
+              <div class="stat-card__body">
+                <div class="stat-card__value" id="adv-stat-clients">—</div>
+                <div class="stat-card__label">Total Clients</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--warning" aria-hidden="true">📝</div>
+              <div class="stat-card__body">
+                <div class="stat-card__value" id="adv-stat-pending">—</div>
+                <div class="stat-card__label">Quotes Pending Review</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--teal" aria-hidden="true">⇄</div>
+              <div class="stat-card__body">
+                <div class="stat-card__value" id="adv-stat-today">—</div>
+                <div class="stat-card__label">Conversions Today</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card__header">
+                <h3>Quotes Pending Your Review</h3>
+                <button class="btn btn-ghost btn-xs" onclick="showAdvisorSection('reviews',null)">View all</button>
+              </div>
+              <div class="card__body" id="adv-pending-preview">
+                <p class="text-muted">Loading…</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header">
+                <h3>Recent Client Activity</h3>
+              </div>
+              <div class="card__body" id="adv-recent-activity">
+                <p class="text-muted">Loading…</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Clients ────────────────────────────────────── -->
+        <section class="portal-section advisor-section" id="advisor-clients" aria-label="Client list" style="display:none">
+          <div class="section-header">
+            <h1>My Clients</h1>
+            <p class="text-muted">Manage and review your client portfolio</p>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <input type="text" id="client-search" class="form-input form-input--sm"
+                     placeholder="Search clients by name or email…"
+                     oninput="reloadClients()">
+            </div>
+            <div class="card__body" id="advisor-clients-container">
+              <p class="text-muted">Loading clients…</p>
+            </div>
+            <div id="clients-pagination" class="card__footer"></div>
+          </div>
+        </section>
+
+        <!-- ── Pending Reviews ────────────────────────────── -->
+        <section class="portal-section advisor-section" id="advisor-reviews" aria-label="Pending reviews" style="display:none">
+          <div class="section-header">
+            <h1>Pending Reviews</h1>
+            <p class="text-muted">Investment quotes submitted by clients awaiting your review</p>
+          </div>
+
+          <div class="card">
+            <div class="card__body" id="advisor-reviews-container">
+              <p class="text-muted">Loading…</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Client Profile ─────────────────────────────── -->
+        <section class="portal-section advisor-section" id="advisor-profile" aria-label="Client profile" style="display:none">
+          <div class="section-header">
+            <button class="btn btn-ghost btn-sm" onclick="showAdvisorSection('clients',null)">
+              ← Back to Clients
+            </button>
+          </div>
+          <!-- Content rendered by AdvisorPortal._renderClientProfile() -->
+          <p class="text-muted">Select a client to view their profile.</p>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Session Warning Modal -->
+  <div class="modal" id="session-warning-modal" role="alertdialog" aria-modal="true"
+       aria-labelledby="sw-title" aria-hidden="true">
+    <div class="modal__backdrop"></div>
+    <div class="modal__box modal__box--sm">
+      <div class="modal__header">
+        <div style="text-align:center;font-size:2.5rem">⏰</div>
+        <h2 class="modal__title" id="sw-title">Session Expiring Soon</h2>
+        <p>Your session expires in <strong id="session-countdown">60</strong> seconds.</p>
+      </div>
+      <div class="modal__body">
+        <div class="btn-row">
+          <button class="btn btn-primary btn-full" onclick="extendSession()">Continue Session</button>
+          <button class="btn btn-ghost btn-full"   onclick="handleSignOut()">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="js/security.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="data/seed-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/admin.js"></script>
+
+  <script>
+    'use strict';
+
+    // ── Auth guard ───────────────────────────────────────────
+    (function() {
+      if (typeof auth === 'undefined' || !auth.isAuthenticated()) {
+        window.location.href = 'index.html'; return;
+      }
+      const user = auth.getCurrentUser();
+      if (!user || user.role !== 'Advisor') {
+        window.location.href = 'index.html'; return;
+      }
+      const name     = user.name || user.fullName || 'Advisor';
+      const initials = name.split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2);
+
+      document.getElementById('advisor-welcome').textContent     = `Welcome back, ${name.split(' ')[0]}`;
+      document.getElementById('advisor-name-sidebar').textContent = name;
+      document.getElementById('adv-name-hdr').textContent         = name;
+      document.getElementById('adv-avatar-hdr').textContent       = initials;
+      document.getElementById('advisor-avatar').textContent       = initials;
+    })();
+
+    // ── Portal instance ───────────────────────────────────────
+    let _portal = null;
+    document.addEventListener('DOMContentLoaded', () => {
+      _portal = new AdvisorPortal();
+      updatePendingBadge();
+    });
+
+    function updatePendingBadge() {
+      const count = db.getPendingAdvisorReview().length;
+      const badge = document.getElementById('pending-badge');
+      if (badge) badge.textContent = count;
+    }
+
+    // ── Section routing ───────────────────────────────────────
+    const advTitles = {
+      dashboard: 'Dashboard', clients: 'My Clients',
+      reviews: 'Pending Reviews', profile: 'Client Profile'
+    };
+    let _advSectionInited = {};
+
+    function showAdvisorSection(name, linkEl) {
+      document.querySelectorAll('.advisor-section').forEach(s => s.style.display = 'none');
+      const section = document.getElementById(`advisor-${name}`);
+      if (section) section.style.display = 'block';
+
+      document.querySelectorAll('[data-advisor-section]').forEach(l => l.classList.remove('active'));
+      (linkEl || document.querySelector(`[data-advisor-section="${name}"]`))?.classList.add('active');
+
+      const titleEl = document.getElementById('adv-page-title');
+      if (titleEl) titleEl.textContent = advTitles[name] || name;
+
+      if (!_advSectionInited[name]) {
+        _advSectionInited[name] = true;
+        const inits = {
+          dashboard: () => _portal && _portal._renderDashboard(),
+          clients:   () => _portal && _portal._renderClients(),
+          reviews:   () => _portal && _portal._renderPendingReviews()
+        };
+        inits[name]?.();
+      }
+
+      document.getElementById('advisor-sidebar')?.classList.remove('sidebar--open');
+    }
+
+    // Expose for AdvisorPortal internal calls
+    function reloadClients() { _portal && _portal._renderClients(1); }
+
+    // Override portal._renderSection to use our routing
+    // The AdvisorPortal class manages its own rendering via _renderSection
+
+    // ── Open client from portal ───────────────────────────────
+    // AdvisorPortal._openClient calls showAdvisorSection('profile')
+    // We need to override it to show the profile nav link
+    const _origOpenClient = AdvisorPortal.prototype._openClient;
+    AdvisorPortal.prototype._openClient = function(clientId) {
+      this.currentClientId = clientId;
+      document.getElementById('profile-nav-link')?.style && (document.getElementById('profile-nav-link').style.display = 'flex');
+      showAdvisorSection('profile', null);
+      _advSectionInited['profile'] = false; // force re-render
+      this._renderClientProfile();
+    };
+
+    // ── Sign out ──────────────────────────────────────────────
+    function handleSignOut() { auth.logout('user_initiated'); }
+    function extendSession() {
+      if (typeof auth !== 'undefined') auth.resetInactivityTimer();
+      const m = document.getElementById('session-warning-modal');
+      if (m) { m.style.display = 'none'; m.setAttribute('aria-hidden', 'true'); }
+    }
+
+    // ── User dropdown ─────────────────────────────────────────
+    function toggleAdvMenu() {
+      const menu = document.getElementById('adv-user-menu');
+      const btn  = document.getElementById('adv-user-menu-btn');
+      if (!menu) return;
+      const open = menu.style.display === 'block';
+      menu.style.display = open ? 'none' : 'block';
+      btn?.setAttribute('aria-expanded', !open);
+    }
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.user-dropdown'))
+        document.getElementById('adv-user-menu') && (document.getElementById('adv-user-menu').style.display = 'none');
+    });
+
+    // ── Session timer ─────────────────────────────────────────
+    setInterval(() => {
+      const el = document.getElementById('session-timer-display');
+      if (!el || typeof auth === 'undefined') return;
+      const info = auth.getSessionInfo();
+      if (info) {
+        const remaining = Math.max(0, Math.ceil((new Date(info.expiresAt) - Date.now()) / 1000));
+        el.textContent = `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, '0')}`;
+      }
+    }, 1000);
+
+    // Init first section
+    document.addEventListener('DOMContentLoaded', () => {
+      _advSectionInited['dashboard'] = true;
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Enomy-Finances — Professional currency conversion, investment planning, and mortgage calculation services by Phonyt Digital Solutions.">
+  <title>Enomy-Finances | Phonyt Digital Solutions</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- Skip navigation for accessibility -->
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <!-- ── Navbar ──────────────────────────────────────────────── -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar__brand">
+      <img src="assets/images/logo.svg" alt="Enomy-Finances logo" class="navbar__logo" width="180" height="40">
+    </div>
+    <button class="navbar__toggle" id="navbar-toggle" aria-expanded="false" aria-controls="navbar-links" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="navbar__links" id="navbar-links" role="list">
+      <li><a href="#services"   class="navbar__link">Services</a></li>
+      <li><a href="#about"      class="navbar__link">About</a></li>
+      <li><a href="#contact"    class="navbar__link">Contact</a></li>
+      <li>
+        <button class="btn btn-primary btn-sm" id="open-login-btn" aria-haspopup="dialog">
+          Sign In
+        </button>
+      </li>
+      <li>
+        <button class="btn btn-ghost btn-sm" id="open-register-btn" aria-haspopup="dialog">
+          Register
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ── Hero ──────────────────────────────────────────────────── -->
+  <main id="main-content">
+    <section class="hero" aria-label="Welcome banner">
+      <div class="hero__content container">
+        <div class="hero__badge">Trusted by 10,000+ customers</div>
+        <h1 class="hero__title">
+          Smart Financial Services<br>
+          <span class="hero__title--accent">For the Modern World</span>
+        </h1>
+        <p class="hero__subtitle">
+          Currency conversion across 6 major currencies, bespoke investment planning,
+          and instant mortgage calculations — all in one secure platform.
+        </p>
+        <div class="hero__cta">
+          <button class="btn btn-primary btn-lg" id="hero-signin-btn">
+            Get Started
+          </button>
+          <a href="#services" class="btn btn-ghost btn-lg">
+            Explore Services
+          </a>
+        </div>
+        <div class="hero__stats" aria-label="Platform statistics">
+          <div class="hero__stat">
+            <span class="hero__stat-value" id="stat-users">20+</span>
+            <span class="hero__stat-label">Registered Users</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-value" id="stat-conversions">50+</span>
+            <span class="hero__stat-label">Conversions Processed</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">6</span>
+            <span class="hero__stat-label">Currencies Supported</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">£300–£5K</span>
+            <span class="hero__stat-label">Conversion Range</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__globe">
+          <div class="globe-ring globe-ring--1"></div>
+          <div class="globe-ring globe-ring--2"></div>
+          <div class="globe-ring globe-ring--3"></div>
+          <div class="globe-center">
+            <span>£</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Services ─────────────────────────────────────────── -->
+    <section class="section section--light" id="services" aria-label="Our services">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">Our Services</h2>
+          <p class="section__subtitle">Comprehensive financial tools designed for individuals and businesses</p>
+        </div>
+        <div class="services-grid" role="list">
+          <article class="service-card" role="listitem">
+            <div class="service-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+                <text x="24" y="30" text-anchor="middle" font-size="18" fill="currentColor" font-weight="600">£$</text>
+              </svg>
+            </div>
+            <h3 class="service-card__title">Currency Conversion</h3>
+            <p class="service-card__desc">
+              Convert between GBP, USD, EUR, BRL, JPY, and TRY with live market rates.
+              Tiered fee structure from 1.5%–3.5% based on transaction amount.
+            </p>
+            <ul class="service-card__features">
+              <li>Live rate simulation (refreshes every 30s)</li>
+              <li>Transactions: £300 – £5,000</li>
+              <li>4 fee tiers: Standard → Platinum</li>
+              <li>Full transaction receipt &amp; CSV export</li>
+            </ul>
+            <button class="btn btn-primary service-card__cta" onclick="document.getElementById('open-login-btn').click()">
+              Start Converting
+            </button>
+          </article>
+
+          <article class="service-card service-card--featured" role="listitem">
+            <div class="service-card__badge">Most Popular</div>
+            <div class="service-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="6,36 16,22 24,28 32,14 42,8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="6" y1="42" x2="42" y2="42" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3 class="service-card__title">Investment Planning</h3>
+            <p class="service-card__desc">
+              Personalised investment quotes generated by our Extended Finite State Machine
+              engine across 3 professionally managed plans.
+            </p>
+            <ul class="service-card__features">
+              <li>Basic Savings: 3.5% AER, Low Risk</li>
+              <li>Savings Plan Plus: 7.2% AER, Medium Risk</li>
+              <li>Managed Stock: 12.4% AER, High Risk</li>
+              <li>1, 5 &amp; 10-year projections with UK tax</li>
+            </ul>
+            <button class="btn btn-accent service-card__cta" onclick="document.getElementById('open-login-btn').click()">
+              Get a Quote
+            </button>
+          </article>
+
+          <article class="service-card" role="listitem">
+            <div class="service-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="16" width="40" height="28" rx="3" stroke="currentColor" stroke-width="2"/>
+                <path d="M16 16V12a8 8 0 0 1 16 0v4" stroke="currentColor" stroke-width="2"/>
+                <circle cx="24" cy="30" r="4" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3 class="service-card__title">Mortgage Calculator</h3>
+            <p class="service-card__desc">
+              Accurate mortgage repayment calculations using standard annuity formula with
+              full amortization schedules and LTV indicators.
+            </p>
+            <ul class="service-card__features">
+              <li>Repayment &amp; Interest-Only mortgages</li>
+              <li>Full amortization schedule</li>
+              <li>LTV indicator &amp; stamp duty estimate</li>
+              <li>Export schedule as CSV</li>
+            </ul>
+            <button class="btn btn-primary service-card__cta" onclick="document.getElementById('open-login-btn').click()">
+              Calculate Now
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── About / Trust ────────────────────────────────────── -->
+    <section class="section" id="about" aria-label="About Enomy-Finances">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-grid__text">
+            <h2>Secure &amp; Trusted<br>Financial Platform</h2>
+            <p>
+              Enomy-Finances is built by Phonyt Digital Solutions to the highest standards
+              of security and compliance. Our platform uses industry-standard cryptographic
+              techniques and role-based access control.
+            </p>
+            <div class="trust-badges">
+              <div class="trust-badge">
+                <span class="trust-badge__icon">🔒</span>
+                <div>
+                  <strong>MFA Protected</strong>
+                  <small>6-digit OTP on every login</small>
+                </div>
+              </div>
+              <div class="trust-badge">
+                <span class="trust-badge__icon">🛡️</span>
+                <div>
+                  <strong>FSCS Covered</strong>
+                  <small>Up to £85,000 protection</small>
+                </div>
+              </div>
+              <div class="trust-badge">
+                <span class="trust-badge__icon">📋</span>
+                <div>
+                  <strong>FCA Compliant</strong>
+                  <small>AML &amp; KYC procedures</small>
+                </div>
+              </div>
+              <div class="trust-badge">
+                <span class="trust-badge__icon">♿</span>
+                <div>
+                  <strong>WCAG 2.1 AA</strong>
+                  <small>Fully accessible design</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about-grid__visual" aria-hidden="true">
+            <div class="security-diagram">
+              <div class="sec-layer sec-layer--1">SHA-256 Encryption</div>
+              <div class="sec-layer sec-layer--2">MFA Authentication</div>
+              <div class="sec-layer sec-layer--3">Role-Based Access</div>
+              <div class="sec-layer sec-layer--4">Session Management</div>
+              <div class="sec-layer sec-layer--5">Audit Logging</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Demo Credentials ─────────────────────────────────── -->
+    <section class="section section--light" id="contact" aria-label="Demo credentials">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">Demo Access</h2>
+          <p class="section__subtitle">Use these credentials to explore the platform. OTP codes appear in the browser console.</p>
+        </div>
+        <div class="demo-creds-grid">
+          <div class="demo-cred-card demo-cred-card--customer">
+            <div class="demo-cred-card__role">Customer</div>
+            <div class="demo-cred-card__email">customer@enomy.uk</div>
+            <div class="demo-cred-card__pass">Customer123!</div>
+            <p class="demo-cred-card__note">Access currency conversion, investment quotes, mortgage calculator</p>
+            <button class="btn btn-primary btn-sm" onclick="prefillLogin('customer@enomy.uk','Customer123!')">
+              Sign In as Customer
+            </button>
+          </div>
+          <div class="demo-cred-card demo-cred-card--advisor">
+            <div class="demo-cred-card__role">Advisor</div>
+            <div class="demo-cred-card__email">advisor@enomy.uk</div>
+            <div class="demo-cred-card__pass">Advisor123!</div>
+            <p class="demo-cred-card__note">CRM dashboard, client management, investment quote review</p>
+            <button class="btn btn-secondary btn-sm" onclick="prefillLogin('advisor@enomy.uk','Advisor123!')">
+              Sign In as Advisor
+            </button>
+          </div>
+          <div class="demo-cred-card demo-cred-card--admin">
+            <div class="demo-cred-card__role">Admin</div>
+            <div class="demo-cred-card__email">admin@enomy.uk</div>
+            <div class="demo-cred-card__pass">Admin123!</div>
+            <p class="demo-cred-card__note">Full system management, analytics, fee policies, audit logs</p>
+            <button class="btn btn-danger btn-sm" onclick="prefillLogin('admin@enomy.uk','Admin123!')">
+              Sign In as Admin
+            </button>
+          </div>
+        </div>
+        <p class="text-center text-muted mt-lg">
+          <strong>OTP Demo:</strong> After entering credentials, open browser DevTools (F12) &rarr; Console tab to view your 6-digit OTP code.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner container">
+      <div class="footer__brand">
+        <img src="assets/images/logo.svg" alt="Enomy-Finances" width="160" height="36">
+        <p>A Phonyt Digital Solutions product.<br>Demonstration purposes only.</p>
+      </div>
+      <div class="footer__links">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Currency Conversion</a></li>
+          <li><a href="#services">Investment Planning</a></li>
+          <li><a href="#services">Mortgage Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#" onclick="return false">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer__legal">
+        <p>&copy; 2025 Phonyt Digital Solutions. All rights reserved.</p>
+        <p>Enomy-Finances is a demonstration application. Not regulated by the FCA.
+        Not for use with real financial transactions.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODALS
+       ══════════════════════════════════════════════════════════ -->
+
+  <!-- ── Login Modal ────────────────────────────────────────── -->
+  <div class="modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title" aria-hidden="true">
+    <div class="modal__backdrop" onclick="closeLoginModal()"></div>
+    <div class="modal__box modal__box--sm">
+      <button class="modal__close" onclick="closeLoginModal()" aria-label="Close login modal">&times;</button>
+
+      <!-- Step 1: Credentials -->
+      <div id="login-step-1">
+        <div class="modal__header">
+          <img src="assets/images/logo.svg" alt="" class="modal__logo" width="140" height="32">
+          <h2 class="modal__title" id="login-modal-title">Sign In</h2>
+          <p class="modal__subtitle">Secure access to your financial portal</p>
+        </div>
+        <div class="modal__body">
+          <div id="login-error" class="alert alert-danger" role="alert" style="display:none"></div>
+          <div id="login-lockout" class="alert alert-warning" role="alert" style="display:none"></div>
+
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address</label>
+            <input type="email" id="login-email" class="form-input" placeholder="your@email.com"
+                   autocomplete="username email" required aria-required="true">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <div class="password-field">
+              <input type="password" id="login-password" class="form-input" placeholder="Enter your password"
+                     autocomplete="current-password" required aria-required="true">
+              <button type="button" class="password-toggle" onclick="togglePassword('login-password', this)" aria-label="Toggle password visibility">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-full" id="login-submit-btn" onclick="handleLoginSubmit()">
+            Continue
+          </button>
+          <div class="modal__footer-links">
+            <span>New to Enomy-Finances?</span>
+            <button type="button" class="link-btn" onclick="switchToRegister()">Create account</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: OTP Verification -->
+      <div id="login-step-2" style="display:none">
+        <div class="modal__header">
+          <div class="otp-header-icon" aria-hidden="true">🔐</div>
+          <h2 class="modal__title">Verify Your Identity</h2>
+          <p class="modal__subtitle" id="otp-subtitle">
+            A 6-digit code has been sent to your registered contact.
+            Check the browser console (F12) for your demo OTP.
+          </p>
+        </div>
+        <div class="modal__body">
+          <div id="otp-error" class="alert alert-danger" role="alert" style="display:none"></div>
+          <div id="otp-attempts-warning" class="alert alert-warning" style="display:none"></div>
+
+          <div class="otp-timer" role="timer" aria-live="polite">
+            Code expires in: <strong id="otp-countdown">3:00</strong>
+          </div>
+
+          <div class="otp-input-group" role="group" aria-label="Enter 6-digit OTP">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                   id="otp-0" aria-label="OTP digit 1" autocomplete="one-time-code">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                   id="otp-1" aria-label="OTP digit 2">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                   id="otp-2" aria-label="OTP digit 3">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                   id="otp-3" aria-label="OTP digit 4">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                   id="otp-4" aria-label="OTP digit 5">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                   id="otp-5" aria-label="OTP digit 6">
+          </div>
+
+          <button type="button" class="btn btn-primary btn-full" id="otp-submit-btn" onclick="handleOTPSubmit()">
+            Verify &amp; Sign In
+          </button>
+          <div class="modal__footer-links">
+            <button type="button" class="link-btn" onclick="backToCredentials()">← Back</button>
+            <button type="button" class="link-btn" id="resend-otp-btn" onclick="resendOTP()">Resend code</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Registration Modal ──────────────────────────────────── -->
+  <div class="modal" id="register-modal" role="dialog" aria-modal="true" aria-labelledby="register-modal-title" aria-hidden="true">
+    <div class="modal__backdrop" onclick="closeRegisterModal()"></div>
+    <div class="modal__box">
+      <button class="modal__close" onclick="closeRegisterModal()" aria-label="Close registration modal">&times;</button>
+      <div class="modal__header">
+        <img src="assets/images/logo.svg" alt="" class="modal__logo" width="140" height="32">
+        <h2 class="modal__title" id="register-modal-title">Create Account</h2>
+        <p class="modal__subtitle">Join Enomy-Finances today</p>
+      </div>
+      <div class="modal__body">
+        <div id="register-error"   class="alert alert-danger"  role="alert" style="display:none"></div>
+        <div id="register-success" class="alert alert-success" role="status"style="display:none"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="reg-firstname">First Name</label>
+            <input type="text" id="reg-firstname" class="form-input" placeholder="Jane" required autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-lastname">Last Name</label>
+            <input type="text" id="reg-lastname" class="form-input" placeholder="Smith" required autocomplete="family-name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email Address</label>
+          <input type="email" id="reg-email" class="form-input" placeholder="jane@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-phone">Phone Number (UK)</label>
+          <input type="tel" id="reg-phone" class="form-input" placeholder="+44 7700 000000" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password</label>
+          <div class="password-field">
+            <input type="password" id="reg-password" class="form-input" placeholder="Create a strong password"
+                   required autocomplete="new-password" oninput="updatePasswordStrength(this.value)">
+            <button type="button" class="password-toggle" onclick="togglePassword('reg-password', this)" aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="password-strength" id="reg-strength-meter" aria-live="polite">
+            <div class="password-strength__bar">
+              <div class="strength-segment" id="seg-0"></div>
+              <div class="strength-segment" id="seg-1"></div>
+              <div class="strength-segment" id="seg-2"></div>
+              <div class="strength-segment" id="seg-3"></div>
+            </div>
+            <span class="password-strength__label" id="strength-label"></span>
+          </div>
+          <div id="password-hints" class="form-hint"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-confirm">Confirm Password</label>
+          <input type="password" id="reg-confirm" class="form-input" placeholder="Repeat your password"
+                 required autocomplete="new-password">
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="reg-terms" class="form-check-input" required>
+          <label for="reg-terms" class="form-check-label">
+            I agree to the <a href="#" onclick="return false">Terms of Service</a> and <a href="#" onclick="return false">Privacy Policy</a>
+          </label>
+        </div>
+
+        <button type="button" class="btn btn-primary btn-full" id="register-submit-btn" onclick="handleRegisterSubmit()">
+          Create Account
+        </button>
+        <div class="modal__footer-links">
+          <span>Already have an account?</span>
+          <button type="button" class="link-btn" onclick="switchToLogin()">Sign in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Toast Container ──────────────────────────────────── -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SCRIPTS — load order matters
+       ══════════════════════════════════════════════════════════ -->
+  <script src="js/security.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="data/seed-data.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    'use strict';
+
+    // ── Seed database on first load ─────────────────────────
+    (function initDB() {
+      if (!localStorage.getItem('ef_initialized')) {
+        if (typeof SEED_DATA !== 'undefined') {
+          db.seedDatabase(SEED_DATA);
+          localStorage.setItem('ef_initialized', '1');
+          console.log('%c[Enomy-Finances] Demo database seeded.', 'color:#008B8B;font-weight:bold');
+        }
+      }
+    })();
+
+    // ── Live stat counters ──────────────────────────────────
+    (function updateStats() {
+      const stats = db.getSystemStats();
+      const usersEl = document.getElementById('stat-users');
+      const convEl  = document.getElementById('stat-conversions');
+      if (usersEl) usersEl.textContent = stats.totalUsers + '+';
+      if (convEl)  convEl.textContent  = stats.totalConversions + '+';
+    })();
+
+    // ── Redirect if already authenticated ──────────────────
+    (function checkAuth() {
+      if (typeof auth !== 'undefined' && auth.isAuthenticated()) {
+        const user = auth.getCurrentUser();
+        if (user) {
+          const destinations = { Customer: 'customer-portal.html', Advisor: 'advisor-portal.html', Admin: 'admin-portal.html' };
+          const dest = destinations[user.role];
+          if (dest) window.location.href = dest;
+        }
+      }
+    })();
+
+    // ── OTP state ───────────────────────────────────────────
+    let _otpCountdownTimer = null;
+    let _pendingUserEmail  = null;
+
+    // ── Modal helpers ───────────────────────────────────────
+    function openLoginModal() {
+      const m = document.getElementById('login-modal');
+      m.style.display = 'flex';
+      m.setAttribute('aria-hidden', 'false');
+      document.getElementById('login-step-1').style.display = 'block';
+      document.getElementById('login-step-2').style.display = 'none';
+      clearLoginErrors();
+      document.getElementById('login-email')?.focus();
+    }
+
+    function closeLoginModal() {
+      const m = document.getElementById('login-modal');
+      m.style.display = 'none';
+      m.setAttribute('aria-hidden', 'true');
+      stopOTPCountdown();
+    }
+
+    function openRegisterModal() {
+      const m = document.getElementById('register-modal');
+      m.style.display = 'flex';
+      m.setAttribute('aria-hidden', 'false');
+      document.getElementById('reg-firstname')?.focus();
+    }
+
+    function closeRegisterModal() {
+      const m = document.getElementById('register-modal');
+      m.style.display = 'none';
+      m.setAttribute('aria-hidden', 'true');
+    }
+
+    function switchToRegister() { closeLoginModal(); openRegisterModal(); }
+    function switchToLogin()    { closeRegisterModal(); openLoginModal(); }
+    function prefillLogin(email, pass) {
+      openLoginModal();
+      setTimeout(() => {
+        document.getElementById('login-email').value    = email;
+        document.getElementById('login-password').value = pass;
+      }, 50);
+    }
+
+    function clearLoginErrors() {
+      ['login-error','login-lockout','otp-error','otp-attempts-warning'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.style.display = 'none'; el.textContent = ''; }
+      });
+    }
+
+    function showLoginError(msg) {
+      const el = document.getElementById('login-error');
+      if (el) { el.textContent = msg; el.style.display = 'block'; }
+    }
+
+    function showOTPError(msg) {
+      const el = document.getElementById('otp-error');
+      if (el) { el.textContent = msg; el.style.display = 'block'; }
+    }
+
+    // ── Login Step 1 ────────────────────────────────────────
+    async function handleLoginSubmit() {
+      const email    = document.getElementById('login-email')?.value?.trim();
+      const password = document.getElementById('login-password')?.value;
+      const btn      = document.getElementById('login-submit-btn');
+      clearLoginErrors();
+
+      if (!email || !password) { showLoginError('Please enter your email and password.'); return; }
+
+      btn.disabled = true; btn.textContent = 'Signing in…';
+
+      try {
+        const result = await auth.login(email, password);
+
+        if (result.success) {
+          _pendingUserEmail = email;
+          // Show step 2
+          document.getElementById('login-step-1').style.display = 'none';
+          document.getElementById('login-step-2').style.display = 'block';
+          startOTPCountdown(180); // 3 minutes
+          document.getElementById('otp-0')?.focus();
+        } else {
+          if (result.locked) {
+            const lockoutEl = document.getElementById('login-lockout');
+            if (lockoutEl) {
+              lockoutEl.textContent = result.message || 'Account locked due to too many failed attempts. Please try again in 15 minutes.';
+              lockoutEl.style.display = 'block';
+            }
+          } else {
+            showLoginError(result.message || 'Invalid email or password.');
+          }
+        }
+      } catch (e) {
+        console.error('[Login]', e);
+        showLoginError('An unexpected error occurred. Please try again.');
+      } finally {
+        btn.disabled = false; btn.textContent = 'Continue';
+      }
+    }
+
+    function backToCredentials() {
+      stopOTPCountdown();
+      document.getElementById('login-step-1').style.display = 'block';
+      document.getElementById('login-step-2').style.display = 'none';
+      clearOTPInputs();
+    }
+
+    async function resendOTP() {
+      stopOTPCountdown();
+      clearOTPInputs();
+      clearLoginErrors();
+
+      if (!_pendingUserEmail) return;
+      const user = db.findUserByEmail(_pendingUserEmail);
+      if (user) {
+        auth.generateAndSendOTP(user);
+        startOTPCountdown(180);
+        showToast('A new OTP code has been sent. Check the browser console.', 'info');
+      }
+    }
+
+    // ── Login Step 2 (OTP) ──────────────────────────────────
+    async function handleOTPSubmit() {
+      const digits = Array.from({ length: 6 }, (_, i) => document.getElementById(`otp-${i}`)?.value || '').join('');
+      const btn    = document.getElementById('otp-submit-btn');
+
+      if (digits.length !== 6 || !/^\d{6}$/.test(digits)) {
+        showOTPError('Please enter all 6 digits of your OTP code.'); return;
+      }
+
+      btn.disabled = true; btn.textContent = 'Verifying…';
+
+      try {
+        const result = await auth.completeLogin(digits);
+
+        if (result.success) {
+          stopOTPCountdown();
+          closeLoginModal();
+
+          // Redirect based on role
+          const destinations = { Customer: 'customer-portal.html', Advisor: 'advisor-portal.html', Admin: 'admin-portal.html' };
+          const dest = destinations[result.user?.role];
+          if (dest) {
+            showToast(`Welcome back, ${result.user?.name || result.user?.fullName || 'User'}!`, 'success');
+            setTimeout(() => window.location.href = dest, 800);
+          } else {
+            showLoginError('Unknown role. Contact support.');
+          }
+        } else {
+          const warning = document.getElementById('otp-attempts-warning');
+          showOTPError(result.message || 'Invalid OTP code.');
+          if (result.attemptsLeft !== undefined && warning) {
+            warning.textContent = `${result.attemptsLeft} attempt${result.attemptsLeft !== 1 ? 's' : ''} remaining.`;
+            warning.style.display = 'block';
+          }
+          clearOTPInputs();
+          document.getElementById('otp-0')?.focus();
+        }
+      } catch (e) {
+        console.error('[OTP]', e);
+        showOTPError('Verification failed. Please try again.');
+      } finally {
+        btn.disabled = false; btn.textContent = 'Verify & Sign In';
+      }
+    }
+
+    function clearOTPInputs() {
+      for (let i = 0; i < 6; i++) {
+        const el = document.getElementById(`otp-${i}`);
+        if (el) el.value = '';
+      }
+    }
+
+    // ── OTP countdown ───────────────────────────────────────
+    function startOTPCountdown(seconds) {
+      const el = document.getElementById('otp-countdown');
+      let remaining = seconds;
+
+      function tick() {
+        if (!el) return;
+        const m = Math.floor(remaining / 60);
+        const s = remaining % 60;
+        el.textContent = `${m}:${String(s).padStart(2, '0')}`;
+        if (remaining <= 0) {
+          stopOTPCountdown();
+          showOTPError('OTP code has expired. Please request a new code.');
+          document.getElementById('otp-submit-btn')?.setAttribute('disabled', 'true');
+          return;
+        }
+        if (remaining <= 30) el.style.color = '#DC3545';
+        remaining--;
+      }
+
+      tick();
+      _otpCountdownTimer = setInterval(tick, 1000);
+    }
+
+    function stopOTPCountdown() {
+      if (_otpCountdownTimer) { clearInterval(_otpCountdownTimer); _otpCountdownTimer = null; }
+      const el = document.getElementById('otp-countdown');
+      if (el) { el.textContent = '3:00'; el.style.color = ''; }
+    }
+
+    // ── OTP input: auto-advance & paste ────────────────────
+    document.querySelectorAll('.otp-input').forEach((input, idx, inputs) => {
+      input.addEventListener('input', e => {
+        const val = e.target.value.replace(/\D/g, '');
+        e.target.value = val.slice(0, 1);
+        if (val && idx < inputs.length - 1) inputs[idx + 1].focus();
+        if (idx === inputs.length - 1 && val) handleOTPSubmit();
+      });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !e.target.value && idx > 0) inputs[idx - 1].focus();
+        if (e.key === 'ArrowLeft'  && idx > 0) inputs[idx - 1].focus();
+        if (e.key === 'ArrowRight' && idx < inputs.length - 1) inputs[idx + 1].focus();
+      });
+      input.addEventListener('paste', e => {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+        pasted.split('').forEach((ch, i) => { if (inputs[idx + i]) inputs[idx + i].value = ch; });
+        const next = inputs[Math.min(idx + pasted.length, inputs.length - 1)];
+        next?.focus();
+        if (pasted.length === 6) setTimeout(handleOTPSubmit, 50);
+      });
+    });
+
+    // ── Register handler ─────────────────────────────────────
+    async function handleRegisterSubmit() {
+      const btn    = document.getElementById('register-submit-btn');
+      const errEl  = document.getElementById('register-error');
+      const succEl = document.getElementById('register-success');
+      if (errEl)  { errEl.style.display = 'none'; errEl.textContent = ''; }
+      if (succEl) succEl.style.display = 'none';
+
+      const firstName = document.getElementById('reg-firstname')?.value?.trim();
+      const lastName  = document.getElementById('reg-lastname')?.value?.trim();
+      const email     = document.getElementById('reg-email')?.value?.trim();
+      const phone     = document.getElementById('reg-phone')?.value?.trim();
+      const password  = document.getElementById('reg-password')?.value;
+      const confirm   = document.getElementById('reg-confirm')?.value;
+      const terms     = document.getElementById('reg-terms')?.checked;
+
+      if (!firstName || !lastName) { if (errEl) { errEl.textContent = 'Please enter your full name.'; errEl.style.display = 'block'; } return; }
+      if (!email) { if (errEl) { errEl.textContent = 'Please enter your email address.'; errEl.style.display = 'block'; } return; }
+      if (!password) { if (errEl) { errEl.textContent = 'Please create a password.'; errEl.style.display = 'block'; } return; }
+      if (password !== confirm) { if (errEl) { errEl.textContent = 'Passwords do not match.'; errEl.style.display = 'block'; } return; }
+      if (!terms) { if (errEl) { errEl.textContent = 'You must agree to the Terms of Service.'; errEl.style.display = 'block'; } return; }
+
+      btn.disabled = true; btn.textContent = 'Creating account…';
+
+      try {
+        const result = await auth.register({
+          name: `${firstName} ${lastName}`,
+          fullName: `${firstName} ${lastName}`,
+          email, phone, password, role: 'Customer'
+        });
+
+        if (result.success) {
+          if (succEl) { succEl.textContent = 'Account created! Redirecting to sign in…'; succEl.style.display = 'block'; }
+          setTimeout(() => { closeRegisterModal(); openLoginModal(); }, 1500);
+        } else {
+          if (errEl) { errEl.textContent = result.message || 'Registration failed. Please try again.'; errEl.style.display = 'block'; }
+        }
+      } catch (e) {
+        console.error('[Register]', e);
+        if (errEl) { errEl.textContent = 'Unexpected error. Please try again.'; errEl.style.display = 'block'; }
+      } finally {
+        btn.disabled = false; btn.textContent = 'Create Account';
+      }
+    }
+
+    // ── Password strength meter ──────────────────────────────
+    function updatePasswordStrength(password) {
+      if (typeof analyzePasswordStrength === 'undefined') return;
+      const result   = analyzePasswordStrength(password);
+      const segments = document.querySelectorAll('.strength-segment');
+      const labelEl  = document.getElementById('strength-label');
+      const hintsEl  = document.getElementById('password-hints');
+
+      segments.forEach((seg, i) => {
+        seg.style.backgroundColor = i < result.score ? result.color : '#E2E8F0';
+      });
+
+      if (labelEl) { labelEl.textContent = password ? result.label : ''; labelEl.style.color = result.color; }
+      if (hintsEl && result.suggestions.length) {
+        hintsEl.textContent = result.suggestions[0];
+        hintsEl.style.color = '#6C757D';
+      } else if (hintsEl) {
+        hintsEl.textContent = '';
+      }
+    }
+
+    // ── Toggle password visibility ──────────────────────────
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      const isText = input.type === 'text';
+      input.type = isText ? 'password' : 'text';
+      btn.setAttribute('aria-label', isText ? 'Show password' : 'Hide password');
+    }
+
+    // ── Navbar toggle (mobile) ──────────────────────────────
+    document.getElementById('navbar-toggle')?.addEventListener('click', function() {
+      const links   = document.getElementById('navbar-links');
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !expanded);
+      links?.classList.toggle('navbar__links--open');
+    });
+
+    // ── Keyboard: close modals with Escape ──────────────────
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeLoginModal();
+        closeRegisterModal();
+      }
+    });
+
+    // ── Bind open buttons ───────────────────────────────────
+    document.getElementById('open-login-btn')?.addEventListener('click', openLoginModal);
+    document.getElementById('open-register-btn')?.addEventListener('click', openRegisterModal);
+    document.getElementById('hero-signin-btn')?.addEventListener('click', openLoginModal);
+
+    // ── Enter key submit ────────────────────────────────────
+    document.getElementById('login-password')?.addEventListener('keydown', e => { if (e.key === 'Enter') handleLoginSubmit(); });
+    document.getElementById('login-email')?.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-password')?.focus(); });
+
+    // ── showToast shim (before utils.js fully initialised) ──
+    function showToast(msg, type = 'info', duration = 3000, title = '') {
+      if (typeof window._showToast !== 'undefined') { window._showToast(msg, type, duration, title); return; }
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = `toast toast--${type}`;
+      toast.innerHTML = `${title ? `<strong>${title}</strong> ` : ''}${msg}`;
+      container.appendChild(toast);
+      setTimeout(() => { toast.classList.add('toast--hiding'); setTimeout(() => toast.remove(), 400); }, duration);
+    }
+  </script>
+
+  <style>
+    /* ── Landing page specific styles ────────────────────── */
+    .hero { display: flex; align-items: center; min-height: 90vh; background: linear-gradient(135deg, #002B5C 0%, #003D82 50%, #004E9E 100%); color: #fff; overflow: hidden; position: relative; padding: 4rem 2rem; }
+    .hero__content { flex: 1; max-width: 640px; z-index: 1; }
+    .hero__badge { display: inline-block; background: rgba(212,175,55,0.2); color: #D4AF37; border: 1px solid #D4AF37; padding: .3rem 1rem; border-radius: 20px; font-size: .85rem; margin-bottom: 1.5rem; }
+    .hero__title { font-size: clamp(2.2rem, 5vw, 3.5rem); font-family: 'Playfair Display', serif; margin-bottom: 1rem; line-height: 1.15; }
+    .hero__title--accent { color: #D4AF37; }
+    .hero__subtitle { font-size: 1.1rem; opacity: .85; margin-bottom: 2rem; line-height: 1.7; }
+    .hero__cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .hero__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .hero__stat { text-align: center; }
+    .hero__stat-value { display: block; font-size: 1.8rem; font-weight: 700; color: #D4AF37; }
+    .hero__stat-label { font-size: .78rem; opacity: .75; text-transform: uppercase; letter-spacing: .05em; }
+    .hero__visual { flex: 0 0 320px; display: flex; align-items: center; justify-content: center; }
+    .hero__globe { position: relative; width: 240px; height: 240px; }
+    .globe-ring { position: absolute; border: 2px solid rgba(212,175,55,0.3); border-radius: 50%; animation: spin linear infinite; }
+    .globe-ring--1 { inset: 0; animation-duration: 12s; }
+    .globe-ring--2 { inset: 20px; animation-duration: 20s; animation-direction: reverse; }
+    .globe-ring--3 { inset: 50px; animation-duration: 8s; }
+    .globe-center { position: absolute; inset: 80px; background: rgba(212,175,55,0.15); border: 2px solid #D4AF37; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: #D4AF37; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .section { padding: 5rem 2rem; }
+    .section--light { background: #F8FAFC; }
+    .section__header { text-align: center; margin-bottom: 3rem; }
+    .section__title { font-size: 2.2rem; font-family: 'Playfair Display', serif; color: #003D82; margin-bottom: .75rem; }
+    .section__subtitle { color: #6C757D; font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .service-card { background: #fff; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,.06); border: 1px solid #E8EDF5; position: relative; transition: transform .2s, box-shadow .2s; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,61,130,.12); }
+    .service-card--featured { border-color: #003D82; box-shadow: 0 4px 20px rgba(0,61,130,.15); }
+    .service-card__badge { position: absolute; top: -10px; right: 20px; background: #D4AF37; color: #000; padding: .2rem .8rem; border-radius: 20px; font-size: .75rem; font-weight: 600; }
+    .service-card__icon { width: 56px; height: 56px; background: linear-gradient(135deg, #003D82, #008B8B); border-radius: 12px; padding: 12px; margin-bottom: 1.25rem; color: #fff; }
+    .service-card__title { font-size: 1.3rem; font-family: 'Playfair Display', serif; color: #003D82; margin-bottom: .75rem; }
+    .service-card__desc { color: #6C757D; font-size: .9rem; margin-bottom: 1rem; line-height: 1.6; }
+    .service-card__features { list-style: none; padding: 0; margin-bottom: 1.5rem; }
+    .service-card__features li { padding: .3rem 0; color: #4A5568; font-size: .88rem; }
+    .service-card__features li::before { content: '✓ '; color: #008B8B; font-weight: 700; }
+    .service-card__cta { width: 100%; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-grid h2 { font-size: 2rem; font-family: 'Playfair Display', serif; color: #003D82; margin-bottom: 1rem; }
+    .about-grid p { color: #6C757D; line-height: 1.7; margin-bottom: 2rem; }
+    .trust-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .trust-badge { display: flex; gap: .75rem; align-items: flex-start; }
+    .trust-badge__icon { font-size: 1.5rem; flex-shrink: 0; }
+    .trust-badge strong { display: block; color: #003D82; font-size: .9rem; }
+    .trust-badge small { color: #6C757D; font-size: .8rem; }
+    .security-diagram { display: flex; flex-direction: column; gap: .6rem; }
+    .sec-layer { padding: .8rem 1.5rem; border-radius: 8px; font-weight: 500; font-size: .9rem; text-align: center; }
+    .sec-layer--1 { background: #003D82; color: #fff; }
+    .sec-layer--2 { background: #004E9E; color: #fff; }
+    .sec-layer--3 { background: #008B8B; color: #fff; }
+    .sec-layer--4 { background: #20c997; color: #fff; }
+    .sec-layer--5 { background: #D4AF37; color: #000; }
+
+    .demo-creds-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    .demo-cred-card { background: #fff; border-radius: 12px; padding: 1.5rem; border: 2px solid; text-align: center; }
+    .demo-cred-card--customer { border-color: #008B8B; }
+    .demo-cred-card--advisor  { border-color: #003D82; }
+    .demo-cred-card--admin    { border-color: #DC3545; }
+    .demo-cred-card__role { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #6C757D; margin-bottom: .5rem; }
+    .demo-cred-card__email { font-size: 1rem; font-weight: 600; color: #003D82; margin-bottom: .25rem; }
+    .demo-cred-card__pass { font-family: monospace; font-size: .9rem; background: #F8FAFC; padding: .2rem .6rem; border-radius: 4px; margin-bottom: .75rem; display: inline-block; }
+    .demo-cred-card__note { font-size: .82rem; color: #6C757D; margin-bottom: 1rem; }
+
+    .footer { background: #002B5C; color: rgba(255,255,255,.8); padding: 3rem 2rem 1.5rem; }
+    .footer__inner { display: grid; grid-template-columns: 2fr 1fr 1fr 2fr; gap: 2rem; }
+    .footer__brand img { margin-bottom: .75rem; filter: brightness(0) invert(1); }
+    .footer__brand p { font-size: .85rem; opacity: .7; }
+    .footer__links h4 { color: #fff; margin-bottom: .75rem; font-size: .9rem; text-transform: uppercase; letter-spacing: .05em; }
+    .footer__links ul { list-style: none; padding: 0; }
+    .footer__links li { margin-bottom: .4rem; }
+    .footer__links a { color: rgba(255,255,255,.7); text-decoration: none; font-size: .88rem; }
+    .footer__links a:hover { color: #D4AF37; }
+    .footer__legal { font-size: .78rem; opacity: .6; }
+
+    .modal__logo { display: block; margin: 0 auto 1rem; }
+    .otp-header-icon { text-align: center; font-size: 2.5rem; margin-bottom: .5rem; }
+    .otp-timer { text-align: center; margin-bottom: 1.25rem; padding: .5rem; background: #F8FAFC; border-radius: 6px; font-size: .9rem; }
+    .modal__footer-links { display: flex; justify-content: center; gap: .5rem; margin-top: 1rem; font-size: .87rem; color: #6C757D; }
+    .link-btn { background: none; border: none; color: #003D82; cursor: pointer; font-size: .87rem; padding: 0; text-decoration: underline; }
+    .link-btn:hover { color: #008B8B; }
+
+    @media (max-width: 768px) {
+      .hero { flex-direction: column; text-align: center; }
+      .hero__stats { grid-template-columns: 2fr 2fr; }
+      .hero__cta { justify-content: center; }
+      .hero__visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .trust-badges { grid-template-columns: 1fr; }
+      .footer__inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero__stats { grid-template-columns: 1fr 1fr; }
+      .footer__inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</body>
+</html>

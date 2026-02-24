@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal — Enomy-Finances</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="portal-body">
+
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <div class="portal-layout" id="admin-portal">
+
+    <!-- ── Sidebar ─────────────────────────────────────────── -->
+    <aside class="sidebar sidebar--admin" id="admin-sidebar" role="navigation" aria-label="Admin navigation">
+      <div class="sidebar__brand">
+        <img src="assets/images/logo.svg" alt="Enomy-Finances" width="150" height="34">
+        <div class="sidebar__role-badge sidebar__role-badge--admin">Admin Portal</div>
+      </div>
+
+      <nav class="sidebar__nav">
+        <ul role="list">
+          <li>
+            <a href="#" class="sidebar__item active" data-admin-section="dashboard"
+               onclick="showAdminSection('dashboard',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">⊞</span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-admin-section="users"
+               onclick="showAdminSection('users',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">👥</span>
+              <span>User Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-admin-section="transactions"
+               onclick="showAdminSection('transactions',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">⇄</span>
+              <span>Transactions</span>
+              <span class="sidebar__badge sidebar__badge--danger" id="compliance-badge">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-admin-section="fees"
+               onclick="showAdminSection('fees',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">💷</span>
+              <span>Fee Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-admin-section="analytics"
+               onclick="showAdminSection('analytics',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">📊</span>
+              <span>Analytics</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__item" data-admin-section="audit"
+               onclick="showAdminSection('audit',this);return false;">
+              <span class="sidebar__icon" aria-hidden="true">📋</span>
+              <span>Audit Log</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="system-health">
+          <div class="health-dot health-dot--green" title="System operational"></div>
+          <span>System Operational</span>
+        </div>
+        <button class="btn btn-ghost btn-sm sidebar__signout" onclick="handleSignOut()">Sign Out</button>
+      </div>
+    </aside>
+
+    <!-- ── Main ──────────────────────────────────────────────── -->
+    <div class="portal-main">
+
+      <!-- Header -->
+      <header class="portal-header portal-header--admin" role="banner">
+        <button class="portal-header__menu-btn" aria-label="Open navigation"
+                onclick="document.getElementById('admin-sidebar').classList.toggle('sidebar--open')">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="portal-header__title" id="admin-page-title">Dashboard</div>
+        <div class="portal-header__right">
+          <div class="session-timer" id="session-timer-display" role="timer" aria-live="polite"></div>
+          <div class="user-dropdown">
+            <button class="user-dropdown__trigger" id="admin-user-menu-btn"
+                    aria-haspopup="true" aria-expanded="false" onclick="toggleAdminMenu()">
+              <span class="user-avatar user-avatar--admin" id="admin-avatar-hdr">AD</span>
+              <span id="admin-name-hdr">Admin</span>
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div class="user-dropdown__menu" id="admin-user-menu" style="display:none" role="menu">
+              <a href="#" class="user-dropdown__item" role="menuitem"
+                 onclick="showAdminSection('audit',null);toggleAdminMenu();return false;">Audit Log</a>
+              <div class="user-dropdown__divider"></div>
+              <a href="#" class="user-dropdown__item user-dropdown__item--danger" role="menuitem"
+                 onclick="handleSignOut()">Sign Out</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-content">
+
+        <!-- ── Dashboard ──────────────────────────────────── -->
+        <section class="portal-section admin-section" id="admin-dashboard" aria-label="Admin dashboard">
+          <div class="section-header">
+            <h1>System Dashboard</h1>
+            <p class="text-muted">Real-time overview of platform activity</p>
+          </div>
+
+          <!-- KPI grid -->
+          <div class="stats-grid stats-grid--6">
+            <div class="stat-card stat-card--admin">
+              <div class="stat-card__value" id="stat-total-users">—</div>
+              <div class="stat-card__label">Total Users</div>
+            </div>
+            <div class="stat-card stat-card--admin">
+              <div class="stat-card__value" id="stat-customers">—</div>
+              <div class="stat-card__label">Customers</div>
+            </div>
+            <div class="stat-card stat-card--admin stat-card--accent">
+              <div class="stat-card__value" id="stat-conversions-today">—</div>
+              <div class="stat-card__label">Conversions Today</div>
+            </div>
+            <div class="stat-card stat-card--admin stat-card--success">
+              <div class="stat-card__value" id="stat-revenue-today">£0.00</div>
+              <div class="stat-card__label">Revenue Today</div>
+            </div>
+            <div class="stat-card stat-card--admin stat-card--gold">
+              <div class="stat-card__value" id="stat-total-fees">£0.00</div>
+              <div class="stat-card__label">Total Fee Revenue</div>
+            </div>
+            <div class="stat-card stat-card--admin stat-card--warning">
+              <div class="stat-card__value" id="stat-pending-reviews">—</div>
+              <div class="stat-card__label">Pending Reviews</div>
+            </div>
+          </div>
+
+          <!-- Charts row -->
+          <div class="charts-grid charts-grid--2">
+            <div class="card">
+              <div class="card__header"><h3>Fee Revenue (12 Months)</h3></div>
+              <div class="card__body">
+                <canvas id="revenue-trend-chart" class="chart-canvas" height="180" aria-label="Revenue trend"></canvas>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header"><h3>Monthly Conversion Volume</h3></div>
+              <div class="card__body">
+                <canvas id="currency-volume-chart" class="chart-canvas" height="180" aria-label="Conversion volume"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent activity + DB stats -->
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card__header">
+                <h3>Recent Activity</h3>
+                <button class="btn btn-ghost btn-xs" onclick="showAdminSection('audit',null)">View all</button>
+              </div>
+              <div class="card__body activity-feed" id="recent-activity-list">
+                <p class="text-muted">Loading…</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header"><h3>Database Statistics</h3></div>
+              <div class="card__body" id="db-stats-panel">
+                <p class="text-muted">Loading…</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── User Management ────────────────────────────── -->
+        <section class="portal-section admin-section" id="admin-users" aria-label="User management" style="display:none">
+          <div class="section-header">
+            <h1>User Management</h1>
+            <p class="text-muted">View, manage, lock, and delete user accounts</p>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <div class="card__header-controls">
+                <input type="text" id="user-search" class="form-input form-input--sm"
+                       placeholder="Search by name, email or role…"
+                       oninput="_adminPortal && _adminPortal._renderUsers(1)">
+                <div class="role-filter-btns">
+                  <button class="btn btn-ghost btn-xs" onclick="filterUsersByRole('')">All</button>
+                  <button class="btn btn-ghost btn-xs" onclick="filterUsersByRole('Customer')">Customers</button>
+                  <button class="btn btn-ghost btn-xs" onclick="filterUsersByRole('Advisor')">Advisors</button>
+                  <button class="btn btn-ghost btn-xs" onclick="filterUsersByRole('Admin')">Admins</button>
+                </div>
+              </div>
+            </div>
+            <div class="card__body" id="users-table-container">
+              <p class="text-muted">Loading users…</p>
+            </div>
+            <div id="users-pagination" class="card__footer"></div>
+          </div>
+        </section>
+
+        <!-- ── Transactions ───────────────────────────────── -->
+        <section class="portal-section admin-section" id="admin-transactions" aria-label="Transaction monitoring" style="display:none">
+          <div class="section-header">
+            <h1>Transaction Monitoring</h1>
+            <p class="text-muted">All currency conversion transactions. Rows flagged ⚠ AML exceed £10,000 threshold.</p>
+          </div>
+
+          <!-- Summary stats -->
+          <div class="stats-grid stats-grid--4">
+            <div class="stat-card">
+              <div class="stat-card__value" id="txn-stat-total">—</div>
+              <div class="stat-card__label">Total Transactions</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__value" id="txn-stat-volume">—</div>
+              <div class="stat-card__label">Total Volume (GBP)</div>
+            </div>
+            <div class="stat-card stat-card--success">
+              <div class="stat-card__value" id="txn-stat-fees">—</div>
+              <div class="stat-card__label">Total Fees Collected</div>
+            </div>
+            <div class="stat-card stat-card--danger">
+              <div class="stat-card__value" id="txn-stat-flagged">0</div>
+              <div class="stat-card__label">AML Flagged</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <div class="card__header-controls">
+                <label class="form-label" for="txn-filter-from">From date</label>
+                <input type="date" id="txn-filter-from" class="form-input form-input--sm"
+                       onchange="_adminPortal && _adminPortal._renderTransactions(1)">
+                <label class="form-label" for="txn-filter-to">To date</label>
+                <input type="date" id="txn-filter-to" class="form-input form-input--sm"
+                       onchange="_adminPortal && _adminPortal._renderTransactions(1)">
+                <button class="btn btn-ghost btn-xs" onclick="clearTxnFilters()">Clear</button>
+                <button class="btn btn-secondary btn-xs" onclick="exportTransactionsCsv()">Export CSV</button>
+              </div>
+            </div>
+            <div class="card__body" id="transactions-table-container">
+              <p class="text-muted">Loading transactions…</p>
+            </div>
+            <div id="transactions-pagination" class="card__footer"></div>
+          </div>
+        </section>
+
+        <!-- ── Fee Management ─────────────────────────────── -->
+        <section class="portal-section admin-section" id="admin-fees" aria-label="Fee management" style="display:none">
+          <div class="section-header">
+            <h1>Fee Management</h1>
+            <p class="text-muted">Configure service fee policies for currency conversion</p>
+          </div>
+          <div class="card">
+            <div class="card__body" id="fee-manager-container">
+              <p class="text-muted">Loading fee policies…</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Analytics ──────────────────────────────────── -->
+        <section class="portal-section admin-section" id="admin-analytics" aria-label="Analytics" style="display:none">
+          <div class="section-header">
+            <h1>Analytics</h1>
+            <p class="text-muted">Platform performance and usage insights</p>
+          </div>
+
+          <div class="charts-grid charts-grid--2">
+            <div class="card">
+              <div class="card__header"><h3>Investment Plan Distribution</h3></div>
+              <div class="card__body">
+                <canvas id="investment-types-chart" class="chart-canvas" height="220" aria-label="Investment types"></canvas>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header"><h3>Currency Pair Rankings</h3></div>
+              <div class="card__body">
+                <canvas id="currency-pair-chart" class="chart-canvas" height="220" aria-label="Currency pair distribution"></canvas>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header"><h3>User Activity (7 Days)</h3></div>
+              <div class="card__body">
+                <canvas id="user-activity-chart" class="chart-canvas" height="160" aria-label="User activity"></canvas>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header"><h3>Revenue Trend (12 Months)</h3></div>
+              <div class="card__body">
+                <canvas id="revenue-trend-chart-2" class="chart-canvas" height="160" aria-label="Revenue trend"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Textual stats -->
+          <div class="card mt-lg">
+            <div class="card__header"><h3>Platform Summary</h3></div>
+            <div class="card__body" id="analytics-summary">
+              <p class="text-muted">Loading…</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Audit Log ──────────────────────────────────── -->
+        <section class="portal-section admin-section" id="admin-audit" aria-label="Audit log" style="display:none">
+          <div class="section-header">
+            <h1>Audit Log</h1>
+            <p class="text-muted">Complete record of all system events</p>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <div class="card__header-controls">
+                <input type="text" id="audit-search" class="form-input form-input--sm"
+                       placeholder="Search by user or action…"
+                       oninput="filterAuditLog()">
+                <button class="btn btn-secondary btn-xs" onclick="exportAuditCsv()">Export CSV</button>
+              </div>
+            </div>
+            <div class="card__body" id="audit-log-container">
+              <p class="text-muted">Loading audit log…</p>
+            </div>
+            <div id="audit-pagination" class="card__footer"></div>
+          </div>
+        </section>
+
+      </main>
+    </div><!-- /portal-main -->
+  </div><!-- /portal-layout -->
+
+  <!-- ── Admin User Detail Modal ─────────────────────────────── -->
+  <div class="modal" id="admin-modal" role="dialog" aria-modal="true"
+       aria-labelledby="admin-modal-title" aria-hidden="true" style="display:none">
+    <div class="modal__backdrop" onclick="_adminPortal && _adminPortal.closeModal()"></div>
+    <div class="modal__box">
+      <button class="modal__close" onclick="_adminPortal && _adminPortal.closeModal()" aria-label="Close">&times;</button>
+      <div class="modal__header">
+        <h2 class="modal__title" id="admin-modal-title">Details</h2>
+      </div>
+      <div class="modal__body" id="admin-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Session Warning Modal -->
+  <div class="modal" id="session-warning-modal" role="alertdialog" aria-modal="true"
+       aria-labelledby="sw-title-admin" aria-hidden="true">
+    <div class="modal__backdrop"></div>
+    <div class="modal__box modal__box--sm">
+      <div class="modal__header">
+        <div style="text-align:center;font-size:2.5rem">⏰</div>
+        <h2 class="modal__title" id="sw-title-admin">Session Expiring Soon</h2>
+        <p>Your session expires in <strong id="session-countdown">60</strong> seconds.</p>
+      </div>
+      <div class="modal__body">
+        <div class="btn-row">
+          <button class="btn btn-primary btn-full" onclick="extendSession()">Continue Session</button>
+          <button class="btn btn-ghost btn-full"   onclick="handleSignOut()">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="js/security.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="data/seed-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/admin.js"></script>
+
+  <script>
+    'use strict';
+
+    // ── Auth guard ───────────────────────────────────────────
+    (function() {
+      if (typeof auth === 'undefined' || !auth.isAuthenticated()) {
+        window.location.href = 'index.html'; return;
+      }
+      const user = auth.getCurrentUser();
+      if (!user || user.role !== 'Admin') {
+        window.location.href = 'index.html'; return;
+      }
+      const name     = user.name || user.fullName || 'Admin';
+      const initials = name.split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2);
+      document.getElementById('admin-name-hdr').textContent    = name;
+      document.getElementById('admin-avatar-hdr').textContent  = initials;
+    })();
+
+    // ── Portal instance ───────────────────────────────────────
+    let _adminPortal = null;
+    document.addEventListener('DOMContentLoaded', () => {
+      _adminPortal = new AdminPortal();
+      updateComplianceBadge();
+      showAdminSection('dashboard', null);
+    });
+
+    function updateComplianceBadge() {
+      const conversions = db.getCollection('currencyConversions');
+      const flagged = conversions.filter(c => (parseFloat(c.gbpEquivalent) || parseFloat(c.amount) || 0) >= 10000).length;
+      const badge = document.getElementById('compliance-badge');
+      if (badge) badge.textContent = flagged;
+    }
+
+    // ── Section routing ───────────────────────────────────────
+    const adminTitles = {
+      dashboard: 'Dashboard', users: 'User Management',
+      transactions: 'Transaction Monitoring', fees: 'Fee Management',
+      analytics: 'Analytics', audit: 'Audit Log'
+    };
+    let _adminSectionInited = {};
+
+    function showAdminSection(name, linkEl) {
+      document.querySelectorAll('.admin-section').forEach(s => s.style.display = 'none');
+      const section = document.getElementById(`admin-${name}`);
+      if (section) section.style.display = 'block';
+
+      document.querySelectorAll('[data-admin-section]').forEach(l => l.classList.remove('active'));
+      (linkEl || document.querySelector(`[data-admin-section="${name}"]`))?.classList.add('active');
+
+      const titleEl = document.getElementById('admin-page-title');
+      if (titleEl) titleEl.textContent = adminTitles[name] || name;
+
+      if (!_adminSectionInited[name]) {
+        _adminSectionInited[name] = true;
+        const inits = {
+          dashboard:    () => { _adminPortal._renderDashboard(); renderDBStats(); },
+          users:        () => _adminPortal._renderUsers(1),
+          transactions: () => _adminPortal._renderTransactions(1),
+          fees:         () => _adminPortal._renderFeeManager(),
+          analytics:    () => renderAnalyticsPage(),
+          audit:        () => _adminPortal._renderAuditLog(1)
+        };
+        inits[name]?.();
+      }
+
+      document.getElementById('admin-sidebar')?.classList.remove('sidebar--open');
+    }
+
+    // ── DB stats panel ────────────────────────────────────────
+    function renderDBStats() {
+      const statsEl = document.getElementById('db-stats-panel');
+      if (!statsEl) return;
+      const stats = db.getDatabaseStats();
+      const sys   = db.getSystemStats();
+      statsEl.innerHTML = `
+        <div class="db-stats-grid">
+          ${Object.entries(stats).map(([col, count]) => `
+            <div class="db-stat-item">
+              <span class="db-stat-collection">${col}</span>
+              <span class="db-stat-count">${count}</span>
+            </div>`).join('')}
+        </div>
+        <div class="mt-md">
+          <strong>Total Fee Revenue:</strong> £${sys.totalFeesCollected.toFixed(2)}<br>
+          <strong>Total Conversions:</strong> ${sys.totalConversions}<br>
+          <strong>Total Investment Quotes:</strong> ${sys.totalQuotes}
+        </div>
+      `;
+    }
+
+    // ── Analytics page charts ─────────────────────────────────
+    function renderAnalyticsPage() {
+      const conversions = db.getCollection('currencyConversions');
+      const quotes      = db.getCollection('investmentQuotes');
+      const auditLogs   = db.getCollection('auditLogs');
+
+      setTimeout(() => {
+        if (document.getElementById('investment-types-chart'))
+          renderInvestmentTypesChart('investment-types-chart', quotes);
+        if (document.getElementById('currency-pair-chart'))
+          renderCurrencyPairChart('currency-pair-chart', conversions);
+        if (document.getElementById('user-activity-chart'))
+          renderUserActivityChart('user-activity-chart', auditLogs);
+        if (document.getElementById('revenue-trend-chart-2'))
+          renderRevenueTrendChart('revenue-trend-chart-2', conversions);
+      }, 100);
+
+      // Summary text
+      const sys    = db.getSystemStats();
+      const summEl = document.getElementById('analytics-summary');
+      if (summEl) {
+        summEl.innerHTML = `
+          <div class="analytics-summary-grid">
+            <div class="analytics-stat"><span class="analytics-stat__label">Total Customers</span><span class="analytics-stat__value">${sys.customers}</span></div>
+            <div class="analytics-stat"><span class="analytics-stat__label">Total Advisors</span><span class="analytics-stat__value">${sys.advisors}</span></div>
+            <div class="analytics-stat"><span class="analytics-stat__label">Total Admins</span><span class="analytics-stat__value">${sys.admins}</span></div>
+            <div class="analytics-stat"><span class="analytics-stat__label">Conversions Today</span><span class="analytics-stat__value">${sys.conversionsToday}</span></div>
+            <div class="analytics-stat"><span class="analytics-stat__label">Revenue Today</span><span class="analytics-stat__value">£${sys.revenueToday.toFixed(2)}</span></div>
+            <div class="analytics-stat"><span class="analytics-stat__label">All-Time Revenue</span><span class="analytics-stat__value">£${sys.totalFeesCollected.toFixed(2)}</span></div>
+          </div>`;
+      }
+    }
+
+    // ── Helpers for inline button calls ──────────────────────
+    function filterUsersByRole(role) {
+      const searchEl = document.getElementById('user-search');
+      if (searchEl) searchEl.value = role;
+      _adminPortal && _adminPortal._renderUsers(1);
+    }
+
+    function clearTxnFilters() {
+      ['txn-filter-from','txn-filter-to'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      _adminPortal && _adminPortal._renderTransactions(1);
+    }
+
+    function exportTransactionsCsv() {
+      const conversions = db.getCollection('currencyConversions');
+      if (!conversions.length) { showToast('No transactions to export.', 'info'); return; }
+      exportToCSV(conversions.map(c => ({
+        date: new Date(c.date || c.createdAt).toLocaleString('en-GB'),
+        userId: c.userID, from: c.fromCurrency, to: c.toCurrency,
+        amount: c.amount, converted: c.convertedAmount, fee: c.fee,
+        rate: c.exchangeRate, tier: c.feeTier,
+        flagged: (parseFloat(c.gbpEquivalent) || 0) >= 10000 ? 'YES' : 'NO'
+      })), 'enomy-transactions', {
+        date:'Date', userId:'User ID', from:'From', to:'To',
+        amount:'Amount Sent', converted:'Amount Received', fee:'Fee (GBP)',
+        rate:'Exchange Rate', tier:'Fee Tier', flagged:'AML Flagged'
+      });
+      showToast('Transactions exported.', 'success');
+    }
+
+    // ── Audit log filter ───────────────────────────────────────
+    let _auditAll  = [];
+    let _auditPage = 1;
+
+    function filterAuditLog() {
+      if (!_auditAll.length) _auditAll = db.getAuditLogs(null, 500);
+      const term  = document.getElementById('audit-search')?.value?.toLowerCase() || '';
+      const filtered = term
+        ? _auditAll.filter(l => (l.userID + l.action + (l.details || '')).toLowerCase().includes(term))
+        : _auditAll;
+      renderAuditTable(filtered, 1);
+    }
+
+    function renderAuditTable(logs, page) {
+      const container = document.getElementById('audit-log-container');
+      if (!container) return;
+      _auditPage = page;
+      const paged = paginate(logs, page, 20);
+
+      container.innerHTML = `
+        <div class="table-responsive">
+          <table class="data-table data-table--compact" aria-label="Audit log">
+            <thead>
+              <tr><th>Timestamp</th><th>User ID</th><th>Action</th><th>Details</th><th>IP</th></tr>
+            </thead>
+            <tbody>
+              ${paged.data.map(log => {
+                const color = log.action.includes('LOGIN') ? 'info' :
+                              log.action.includes('CONVERSION') ? 'success' :
+                              log.action.includes('QUOTE') ? 'primary' :
+                              (log.action.includes('FAIL') || log.action.includes('ERROR')) ? 'danger' :
+                              log.action.includes('ADMIN') ? 'warning' : 'secondary';
+                return `
+                  <tr>
+                    <td>${new Date(log.timestamp).toLocaleString('en-GB')}</td>
+                    <td><code>${log.userID || '—'}</code></td>
+                    <td><span class="badge badge-${color}">${log.action.replace(/_/g,' ')}</span></td>
+                    <td class="text-truncate" title="${(log.details || '').replace(/"/g,'&quot;')}">${(log.details || '').slice(0, 80)}</td>
+                    <td><code>${log.ipAddress || '—'}</code></td>
+                  </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>`;
+
+      renderPagination('audit-pagination', page, paged.pages, p => {
+        renderAuditTable(logs, p);
+      });
+    }
+
+    function exportAuditCsv() {
+      const logs = db.getAuditLogs(null, 10000);
+      if (!logs.length) { showToast('No audit logs to export.', 'info'); return; }
+      exportToCSV(logs.map(l => ({
+        timestamp: new Date(l.timestamp).toLocaleString('en-GB'),
+        userId: l.userID, action: l.action, details: l.details, ip: l.ipAddress
+      })), 'enomy-audit-log', {
+        timestamp: 'Timestamp', userId: 'User ID',
+        action: 'Action', details: 'Details', ip: 'IP Address'
+      });
+      showToast('Audit log exported.', 'success');
+    }
+
+    // ── Sign out & session ─────────────────────────────────────
+    function handleSignOut() { auth.logout('user_initiated'); }
+    function extendSession() {
+      if (typeof auth !== 'undefined') auth.resetInactivityTimer();
+      const m = document.getElementById('session-warning-modal');
+      if (m) { m.style.display = 'none'; m.setAttribute('aria-hidden', 'true'); }
+    }
+
+    // ── User dropdown ──────────────────────────────────────────
+    function toggleAdminMenu() {
+      const menu = document.getElementById('admin-user-menu');
+      const btn  = document.getElementById('admin-user-menu-btn');
+      if (!menu) return;
+      const open = menu.style.display === 'block';
+      menu.style.display = open ? 'none' : 'block';
+      btn?.setAttribute('aria-expanded', !open);
+    }
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.user-dropdown'))
+        document.getElementById('admin-user-menu') && (document.getElementById('admin-user-menu').style.display = 'none');
+    });
+
+    // ── Session timer ─────────────────────────────────────────
+    setInterval(() => {
+      const el = document.getElementById('session-timer-display');
+      if (!el || typeof auth === 'undefined') return;
+      const info = auth.getSessionInfo();
+      if (info) {
+        const remaining = Math.max(0, Math.ceil((new Date(info.expiresAt) - Date.now()) / 1000));
+        el.textContent = `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, '0')}`;
+      }
+    }, 1000);
+  </script>
+
+  <style>
+    /* Admin-specific layout extras */
+    .stats-grid--6 { grid-template-columns: repeat(6, 1fr); }
+    .stats-grid--4 { grid-template-columns: repeat(4, 1fr); }
+    .stats-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .stat-card--admin { padding: 1.25rem; text-align: center; }
+    .stat-card--gold    { border-top: 3px solid #D4AF37; }
+    .stat-card--success { border-top: 3px solid #28A745; }
+    .stat-card--warning { border-top: 3px solid #FFC107; }
+    .stat-card--accent  { border-top: 3px solid #20c997; }
+    .stat-card--danger  { border-top: 3px solid #DC3545; }
+    .charts-grid--2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .db-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+    .db-stat-item { display: flex; justify-content: space-between; padding: .5rem .75rem; background: #F8FAFC; border-radius: 6px; font-size: .85rem; }
+    .db-stat-collection { color: #4A5568; }
+    .db-stat-count { font-weight: 700; color: #003D82; }
+    .analytics-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .analytics-stat { padding: 1rem; background: #F8FAFC; border-radius: 8px; text-align: center; }
+    .analytics-stat__label { display: block; font-size: .8rem; color: #6C757D; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .25rem; }
+    .analytics-stat__value { font-size: 1.4rem; font-weight: 700; color: #003D82; }
+    .sidebar__role-badge--admin { background: #DC3545; }
+    .user-avatar--admin { background: linear-gradient(135deg, #DC3545, #C82333); }
+    .portal-header--admin { border-bottom-color: #DC354520; }
+    .system-health { display: flex; align-items: center; gap: .5rem; font-size: .8rem; color: rgba(255,255,255,.75); margin-bottom: .75rem; }
+    .health-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .health-dot--green { background: #28A745; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+    .card__header-controls { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+    .card__footer { padding: 1rem 1.5rem; border-top: 1px solid #E8EDF5; }
+    .row--compliance-flag { background: #FFF5F5; border-left: 3px solid #DC3545; }
+    .row--flagged { background: #FFFBF0; border-left: 3px solid #FFC107; }
+    .activity-feed { max-height: 300px; overflow-y: auto; }
+    .activity-item { display: flex; align-items: center; gap: .75rem; padding: .5rem 0; border-bottom: 1px solid #F0F4F8; }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-badge { flex-shrink: 0; font-size: .7rem; padding: .2rem .6rem; }
+    .activity-user { color: #6C757D; font-size: .83rem; }
+    .activity-time { font-size: .78rem; color: #9AA5B1; margin-left: auto; }
+    .input-inline { max-width: 80px; text-align: center; }
+    .fee-editor { max-width: 700px; }
+    .text-truncate { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .role-filter-btns { display: flex; gap: .25rem; }
+    @media(max-width:1024px) {
+      .stats-grid--6 { grid-template-columns: repeat(3,1fr); }
+      .charts-grid--2 { grid-template-columns: 1fr; }
+      .analytics-summary-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media(max-width:640px) {
+      .stats-grid--6,.stats-grid--4,.stats-grid--3 { grid-template-columns: 1fr 1fr; }
+      .card__header-controls { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+
+</body>
+</html>
