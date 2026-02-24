@@ -1,4 +1,20 @@
+
 # Enomy-Finances Web Application
+
+  
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-1.0.0-blue.svg" alt="Version">
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
+  <img src="https://img.shields.io/badge/Status-Complete-success.svg" alt="Status">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" alt="JavaScript">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Accessibility-WCAG%202.1-orange.svg" alt="WCAG 2.1">
+  <img src="https://img.shields.io/badge/Security-MFA%20Enabled-red.svg" alt="MFA Security">
+</p>
 
 A professional-grade, fully functional financial advisory platform built with pure HTML5, CSS3, and Vanilla JavaScript. Developed for Phonyt Digital Solutions (PDS) as part of the Enomy-Finances client project.
 
@@ -373,5 +389,5 @@ This project demonstrates enterprise-grade Business Analysis and full-stack deve
 
 ---
 
-*Developed by Phonyt Digital Solutions (PDS) for Enomy-Finances*
-*Academic project — BTEC Higher National in Computing*
+*Developed by Nandun De Silva for Enomy-Finances*
+*Academic project — BTEC Higher National Diploma in Computing*
