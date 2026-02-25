@@ -300,23 +300,6 @@ enomy-finances/
 
 ---
 
-## GitHub Pages Deployment
-
-```bash
-git init
-git add .
-git commit -m "Initial commit: Enomy-Finances Web Application"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/enomy-finances.git
-git push -u origin main
-```
-
-Then enable GitHub Pages in repository Settings → Pages → Source: `main` branch.
-
-Live URL: `https://YOUR_USERNAME.github.io/enomy-finances/`
-
----
-
 ## Testing Checklist
 
 ### MFA Flow
