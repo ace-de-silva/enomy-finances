@@ -20,6 +20,20 @@ A professional-grade, fully functional financial advisory platform built with pu
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8919dd61-bd68-4438-86b5-01af2372bed9" width="48%" />
+  <img src="https://github.com/user-attachments/assets/209e05c1-5928-4e6a-8e41-ca97b6f7f92c" width="48%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c60e59c3-935b-40ed-94b2-0077ea41b6c2" width="48%" />
+  <img src="https://github.com/user-attachments/assets/4cf6ce93-048a-4068-98ba-2d8132899b10" width="48%" />
+</p>
+
+---
+
 ## Business Overview
 
 Enomy-Finances is a UK-based financial advisory organisation providing services in:
