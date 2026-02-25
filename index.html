@@ -19,9 +19,9 @@
 
   <!-- ── Navbar ──────────────────────────────────────────────── -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="navbar__brand">
+    <a href="index.html" class="navbar__brand" aria-label="Enomy-Finances home">
       <img src="assets/images/logo.svg" alt="Enomy-Finances logo" class="navbar__logo" width="180" height="40">
-    </div>
+    </a>
     <button class="navbar__toggle" id="navbar-toggle" aria-expanded="false" aria-controls="navbar-links" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
@@ -871,9 +871,9 @@
     .hero { display: flex; align-items: center; min-height: 90vh; background: linear-gradient(135deg, #002B5C 0%, #003D82 50%, #004E9E 100%); color: #fff; overflow: hidden; position: relative; padding: 4rem 2rem; }
     .hero__content { flex: 1; max-width: 640px; z-index: 1; }
     .hero__badge { display: inline-block; background: rgba(212,175,55,0.2); color: #D4AF37; border: 1px solid #D4AF37; padding: .3rem 1rem; border-radius: 20px; font-size: .85rem; margin-bottom: 1.5rem; }
-    .hero__title { font-size: clamp(2.2rem, 5vw, 3.5rem); font-family: 'Playfair Display', serif; margin-bottom: 1rem; line-height: 1.15; }
+    .hero__title { color: #fff; font-size: clamp(2.2rem, 5vw, 3.5rem); font-family: 'Playfair Display', serif; margin-bottom: 1rem; line-height: 1.15; }
     .hero__title--accent { color: #D4AF37; }
-    .hero__subtitle { font-size: 1.1rem; opacity: .85; margin-bottom: 2rem; line-height: 1.7; }
+    .hero__subtitle { font-size: 1.1rem; opacity: .95; margin-bottom: 2rem; line-height: 1.7; }
     .hero__cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
     .hero__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
     .hero__stat { text-align: center; }
@@ -901,9 +901,9 @@
     .service-card__badge { position: absolute; top: -10px; right: 20px; background: #D4AF37; color: #000; padding: .2rem .8rem; border-radius: 20px; font-size: .75rem; font-weight: 600; }
     .service-card__icon { width: 56px; height: 56px; background: linear-gradient(135deg, #003D82, #008B8B); border-radius: 12px; padding: 12px; margin-bottom: 1.25rem; color: #fff; }
     .service-card__title { font-size: 1.3rem; font-family: 'Playfair Display', serif; color: #003D82; margin-bottom: .75rem; }
-    .service-card__desc { color: #6C757D; font-size: .9rem; margin-bottom: 1rem; line-height: 1.6; }
+    .service-card__desc { color: var(--c-muted); font-size: .9rem; margin-bottom: 1rem; line-height: 1.6; }
     .service-card__features { list-style: none; padding: 0; margin-bottom: 1.5rem; }
-    .service-card__features li { padding: .3rem 0; color: #4A5568; font-size: .88rem; }
+    .service-card__features li { padding: .3rem 0; color: var(--c-text-2); font-size: .88rem; }
     .service-card__features li::before { content: '✓ '; color: #008B8B; font-weight: 700; }
     .service-card__cta { width: 100%; }
 
@@ -928,10 +928,10 @@
     .demo-cred-card--customer { border-color: #008B8B; }
     .demo-cred-card--advisor  { border-color: #003D82; }
     .demo-cred-card--admin    { border-color: #DC3545; }
-    .demo-cred-card__role { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #6C757D; margin-bottom: .5rem; }
+    .demo-cred-card__role { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--c-muted); margin-bottom: .5rem; }
     .demo-cred-card__email { font-size: 1rem; font-weight: 600; color: #003D82; margin-bottom: .25rem; }
     .demo-cred-card__pass { font-family: monospace; font-size: .9rem; background: #F8FAFC; padding: .2rem .6rem; border-radius: 4px; margin-bottom: .75rem; display: inline-block; }
-    .demo-cred-card__note { font-size: .82rem; color: #6C757D; margin-bottom: 1rem; }
+    .demo-cred-card__note { font-size: .82rem; color: var(--c-muted); margin-bottom: 1rem; }
 
     .footer { background: #002B5C; color: rgba(255,255,255,.8); padding: 3rem 2rem 1.5rem; }
     .footer__inner { display: grid; grid-template-columns: 2fr 1fr 1fr 2fr; gap: 2rem; }
@@ -965,5 +965,17 @@
       .footer__inner { grid-template-columns: 1fr; }
     }
   </style>
+  <script>
+    // Load the visibility debug helper only when ?debug=1 is present in the URL.
+    try{
+      if (new URLSearchParams(window.location.search).get('debug') === '1') {
+        const s = document.createElement('script');
+        s.src = 'js/visibility-debug.js';
+        s.defer = true;
+        document.body.appendChild(s);
+        console.info('visibility-debug: script injected');
+      }
+    }catch(e){console.warn('visibility-debug: failed to inject', e)}
+  </script>
 </body>
 </html>

@@ -18,14 +18,14 @@
   --c-danger:        #DC3545;
   --c-info:          #17A2B8;
   --c-accent:        #20c997;
-  --c-muted:         #6C757D;
+  --c-muted:         #4B5563;
   --c-white:         #FFFFFF;
   --c-bg:            #F0F4F8;
   --c-surface:       #FFFFFF;
   --c-border:        #E2E8F0;
   --c-text:          #1A202C;
-  --c-text-2:        #4A5568;
-  --c-text-3:        #718096;
+  --c-text-2:        #2D3748;
+  --c-text-3:        #4A5568;
 
   --font-sans:  'Inter', 'Segoe UI', system-ui, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;

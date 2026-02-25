@@ -44,6 +44,21 @@
   padding: .5rem;
   cursor: pointer;
 }
+/* Ensure ghost-style buttons remain visible on dark surfaces (navbar, sidebar, footer) */
+.navbar .btn-ghost,
+.sidebar .btn-ghost,
+.footer .btn-ghost {
+  color: rgba(255,255,255,.95);
+  border-color: rgba(255,255,255,.12);
+  background: transparent;
+}
+.navbar .btn-ghost:hover,
+.sidebar .btn-ghost:hover,
+.footer .btn-ghost:hover {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  border-color: rgba(255,255,255,.18);
+}
 .navbar__toggle span {
   display: block;
   width: 22px;
@@ -433,6 +448,18 @@
   border-color: var(--c-primary);
 }
 .btn-ghost:hover:not(:disabled) { background: var(--c-primary); color: #fff; }
+.hero .btn-ghost,
+.hero .btn-ghost:link,
+.hero .btn-ghost:visited {
+  color: #fff; /* ensure visible on dark hero */
+  border-color: rgba(255,255,255,.18);
+  background: rgba(255,255,255,0.04);
+}
+.hero .btn-ghost:hover:not(:disabled) {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
 
 .btn-accent { background: var(--c-gold); color: #000; border-color: var(--c-gold); }
 .btn-accent:hover:not(:disabled) { background: #C4A025; }
